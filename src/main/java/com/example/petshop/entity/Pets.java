@@ -54,15 +54,6 @@ public class Pets extends BaseEntity {
      */
     private Integer age;
 
-    /**
-     * 宠物图片
-     */
-    private String avator;
-
-    /**
-     * 宠物视频
-     */
-    private String video;
 
     /**
      * 是否禁用 0---启动   1-禁用
@@ -78,6 +69,4 @@ public class Pets extends BaseEntity {
      * 0---没卖 1---卖了
      */
     private Integer stock;
-
-
 }

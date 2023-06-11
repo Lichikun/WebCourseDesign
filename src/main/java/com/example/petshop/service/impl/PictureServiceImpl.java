@@ -5,12 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.petshop.common.utils.DateTool;
-import com.example.petshop.mapper.DictypeMapper;
-import com.example.petshop.entity.Dictype;
-import com.example.petshop.service.DictypeService;
+import com.example.petshop.mapper.PictureMapper;
+import com.example.petshop.entity.Picture;
+import com.example.petshop.service.PictureService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,20 +22,18 @@ import java.util.List;
 * @since 2023-06-11
 */
 @Service
-public class DictypeServiceImpl extends ServiceImpl<DictypeMapper,Dictype> implements DictypeService {
+public class PictureServiceImpl extends ServiceImpl<PictureMapper,Picture> implements PictureService {
 
 
     @Override
-    public Boolean add(Dictype dictype) {
-        dictype.setCreateTime(LocalDateTime.now());
-        dictype.setUseful(0);
-        this.save(dictype);
+    public Boolean add(Picture picture) {
+        this.save(picture);
         return true;
     }
 
     @Override
-    public Boolean update(Dictype dictype) {
-        this.updateById(dictype);
+    public Boolean update(Picture picture) {
+        this.updateById(picture);
         return true;
     }
 
@@ -51,44 +48,44 @@ public class DictypeServiceImpl extends ServiceImpl<DictypeMapper,Dictype> imple
     }
 
     @Override
-    public Boolean updateUsefulByIds(String ids, Integer flag) {
+    public Boolean updateUsefulByIds(String ids, Boolean flag) {
         //ids  若干个id 用逗号隔开
         String[] aryIds = ids.split(",");
         for(String id: aryIds){
 
             //查找符合的数据
-            UpdateWrapper<Dictype> UpdateWrapper = new UpdateWrapper();
+            UpdateWrapper<Picture> UpdateWrapper = new UpdateWrapper();
             UpdateWrapper.eq("id",id);
 
             //修改数据
-            Dictype dictype = this.getOne(UpdateWrapper);
+            Picture picture = this.getOne(UpdateWrapper);
 
             //执行
-            this.update(dictype);
+            this.update(picture);
         }
         return true;
     }
 
     @Override
-    public Dictype getByValue(String value,String name){
-    QueryWrapper<Dictype> QueryWrapper = new QueryWrapper<>();
+    public Picture getByValue(String value,String name){
+    QueryWrapper<Picture> QueryWrapper = new QueryWrapper<>();
         QueryWrapper.eq(value,name);
 
         return this.getOne(QueryWrapper);
     }
 
     @Override
-    public List<Dictype> listByValue (String value,String name){
-        QueryWrapper<Dictype> queryWrapper = new QueryWrapper<>();
+    public List<Picture> listByValue (String value,String name){
+        QueryWrapper<Picture> queryWrapper = new QueryWrapper<>();
             queryWrapper.like(value,name);
 
             return this.list(queryWrapper);
     }
 
     @Override
-    public Page<Dictype> page(Integer pageNum,Integer pageSize,String name) {
-        Page<Dictype> page = new Page<>(pageNum,pageSize);
-        QueryWrapper<Dictype> queryWrapper = new QueryWrapper<>();
+    public Page<Picture> page(Integer pageNum,Integer pageSize,String name) {
+        Page<Picture> page = new Page<>(pageNum,pageSize);
+        QueryWrapper<Picture> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("name",name);
 
         return this.page(page,queryWrapper);

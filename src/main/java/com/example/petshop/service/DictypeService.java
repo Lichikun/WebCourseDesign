@@ -21,6 +21,6 @@ public interface DictypeService extends IService<Dictype> {
     Boolean update(Dictype dictype);
     Dictype getByValue(String value,String name);
     List<Dictype> listByValue(String value,String name);
-    Boolean updateUsefulByIds(String id, Boolean flag);
+    Boolean updateUsefulByIds(String id, Integer flag);
     Page<Dictype> page(Integer pageNum, Integer pageSize, String name);
 }
