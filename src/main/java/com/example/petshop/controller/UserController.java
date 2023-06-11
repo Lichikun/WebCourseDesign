@@ -1,6 +1,5 @@
 package com.example.petshop.controller;
 
-import com.example.petshop.common.config.SkipTokenValidation;
 import com.example.petshop.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,19 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-06-11
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("//user")
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @SkipTokenValidation
-    @RequestMapping(method = RequestMethod.POST, value = "/save")
+    @RequestMapping(method = RequestMethod.POST, value = "ve")
     public Result save(@RequestBody User user) {
-        User FindUser = userService.getByValue("username",user.getUsername());
+        User FindUser = userService.getByValue("name",user.getName());
         Result result = new Result();
         //业务 交给业务成 service 去处理
         if(FindUser != null){
-            result.fail(user.getUsername()+"已存在");
+            result.fail(user.getName()+"已存在");
         }else{
             userService.add(user);
             result.success("添加成功");}
@@ -54,15 +52,16 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST,value = "/update")
     public Result update(@RequestBody User user){
         Result result = new Result();
-        User FindUser = userService.getByValue("name",user.getUsername());
+        User FindUser = userService.getByValue("name",user.getName());
         if(FindUser!=null && !FindUser.getId().equals(user.getId())){
-            result.fail("书名"+user.getUsername()+"已存在");
+            result.fail("书名"+user.getName()+"已存在");
         }else{
             userService.update(user);
             result.success("修改成功");
         }
         return result;
     }
+
 
     @RequestMapping(method = RequestMethod.POST,value = "/updateUsefulByIds")
     public Result updateUsefulByIds(String id,Boolean flag) {
