@@ -1,13 +1,13 @@
-package ${package.ServiceImpl};
+package com.example.petshop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.petshop.common.utils.DateTool;
-import ${package.Mapper}.${table.mapperName};
-import ${package.Entity}.${entity};
-import ${package.Service}.${table.serviceName};
+import com.example.petshop.mapper.PetsMapper;
+import com.example.petshop.entity.Pets;
+import com.example.petshop.service.PetsService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,25 +15,25 @@ import java.util.List;
 
 /**
 * <p>
-    * ${table.comment!} 服务层实现类
+    * 宠物表 服务层实现类
     * </p>
 *
-* @author ${author}
-* @since ${date}
+* @author YKH
+* @since 2023-06-11
 */
 @Service
-public class ${table.serviceImplName} extends ServiceImpl<${table.mapperName},${entity}> implements ${table.serviceName} {
+public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements PetsService {
 
 
     @Override
-    public Boolean add(${entity} ${table.entityPath}) {
-        this.save(${table.entityPath});
+    public Boolean add(Pets pets) {
+        this.save(pets);
         return true;
     }
 
     @Override
-    public Boolean update(${entity} ${table.entityPath}) {
-        this.updateById(${table.entityPath});
+    public Boolean update(Pets pets) {
+        this.updateById(pets);
         return true;
     }
 
@@ -54,38 +54,38 @@ public class ${table.serviceImplName} extends ServiceImpl<${table.mapperName},${
         for(String id: aryIds){
 
             //查找符合的数据
-            UpdateWrapper<${entity}> UpdateWrapper = new UpdateWrapper();
+            UpdateWrapper<Pets> UpdateWrapper = new UpdateWrapper();
             UpdateWrapper.eq("id",id);
 
             //修改数据
-            ${entity} ${table.entityPath} = this.getOne(UpdateWrapper);
+            Pets pets = this.getOne(UpdateWrapper);
 
             //执行
-            this.update(${table.entityPath});
+            this.update(pets);
         }
         return true;
     }
 
     @Override
-    public ${entity} getByValue(String value,String name){
-    QueryWrapper<${entity}> QueryWrapper = new QueryWrapper<>();
+    public Pets getByValue(String value,String name){
+    QueryWrapper<Pets> QueryWrapper = new QueryWrapper<>();
         QueryWrapper.eq(value,name);
 
         return this.getOne(QueryWrapper);
     }
 
     @Override
-    public List<${entity}> listByValue (String value,String name){
-        QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
+    public List<Pets> listByValue (String value,String name){
+        QueryWrapper<Pets> queryWrapper = new QueryWrapper<>();
             queryWrapper.like(value,name);
 
             return this.list(queryWrapper);
     }
 
     @Override
-    public Page<${entity}> page(Integer pageNum,Integer pageSize,String name) {
-        Page<${entity}> page = new Page<>(pageNum,pageSize);
-        QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
+    public Page<Pets> page(Integer pageNum,Integer pageSize,String name) {
+        Page<Pets> page = new Page<>(pageNum,pageSize);
+        QueryWrapper<Pets> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("name",name);
 
         return this.page(page,queryWrapper);

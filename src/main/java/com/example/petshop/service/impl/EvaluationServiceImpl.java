@@ -1,13 +1,13 @@
-package ${package.ServiceImpl};
+package com.example.petshop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.petshop.common.utils.DateTool;
-import ${package.Mapper}.${table.mapperName};
-import ${package.Entity}.${entity};
-import ${package.Service}.${table.serviceName};
+import com.example.petshop.mapper.EvaluationMapper;
+import com.example.petshop.entity.Evaluation;
+import com.example.petshop.service.EvaluationService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,25 +15,25 @@ import java.util.List;
 
 /**
 * <p>
-    * ${table.comment!} 服务层实现类
+    * 评价表 服务层实现类
     * </p>
 *
-* @author ${author}
-* @since ${date}
+* @author YKH
+* @since 2023-06-11
 */
 @Service
-public class ${table.serviceImplName} extends ServiceImpl<${table.mapperName},${entity}> implements ${table.serviceName} {
+public class EvaluationServiceImpl extends ServiceImpl<EvaluationMapper,Evaluation> implements EvaluationService {
 
 
     @Override
-    public Boolean add(${entity} ${table.entityPath}) {
-        this.save(${table.entityPath});
+    public Boolean add(Evaluation evaluation) {
+        this.save(evaluation);
         return true;
     }
 
     @Override
-    public Boolean update(${entity} ${table.entityPath}) {
-        this.updateById(${table.entityPath});
+    public Boolean update(Evaluation evaluation) {
+        this.updateById(evaluation);
         return true;
     }
 
@@ -54,38 +54,38 @@ public class ${table.serviceImplName} extends ServiceImpl<${table.mapperName},${
         for(String id: aryIds){
 
             //查找符合的数据
-            UpdateWrapper<${entity}> UpdateWrapper = new UpdateWrapper();
+            UpdateWrapper<Evaluation> UpdateWrapper = new UpdateWrapper();
             UpdateWrapper.eq("id",id);
 
             //修改数据
-            ${entity} ${table.entityPath} = this.getOne(UpdateWrapper);
+            Evaluation evaluation = this.getOne(UpdateWrapper);
 
             //执行
-            this.update(${table.entityPath});
+            this.update(evaluation);
         }
         return true;
     }
 
     @Override
-    public ${entity} getByValue(String value,String name){
-    QueryWrapper<${entity}> QueryWrapper = new QueryWrapper<>();
+    public Evaluation getByValue(String value,String name){
+    QueryWrapper<Evaluation> QueryWrapper = new QueryWrapper<>();
         QueryWrapper.eq(value,name);
 
         return this.getOne(QueryWrapper);
     }
 
     @Override
-    public List<${entity}> listByValue (String value,String name){
-        QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
+    public List<Evaluation> listByValue (String value,String name){
+        QueryWrapper<Evaluation> queryWrapper = new QueryWrapper<>();
             queryWrapper.like(value,name);
 
             return this.list(queryWrapper);
     }
 
     @Override
-    public Page<${entity}> page(Integer pageNum,Integer pageSize,String name) {
-        Page<${entity}> page = new Page<>(pageNum,pageSize);
-        QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
+    public Page<Evaluation> page(Integer pageNum,Integer pageSize,String name) {
+        Page<Evaluation> page = new Page<>(pageNum,pageSize);
+        QueryWrapper<Evaluation> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("name",name);
 
         return this.page(page,queryWrapper);

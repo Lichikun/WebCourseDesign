@@ -27,7 +27,7 @@ public class User extends BaseEntity {
     /**
      * 用户登入名称(登入账号)
      */
-    private String username;
+    private String name;
 
     /**
      * 用户登入密码(加密后)
@@ -83,6 +83,11 @@ public class User extends BaseEntity {
      * 是否禁用 0---启动   1-禁用
      */
     private Integer useful;
+
+    /**
+     * 用户昵称
+     */
+    private String nickname;
 
 
 }
