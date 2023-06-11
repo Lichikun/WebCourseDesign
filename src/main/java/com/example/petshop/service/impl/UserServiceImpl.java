@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.petshop.common.utils.DateTool;
+import com.example.petshop.common.utils.MD5Utils;
 import com.example.petshop.mapper.UserMapper;
 import com.example.petshop.entity.User;
 import com.example.petshop.service.UserService;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
 * <p>
@@ -26,9 +27,34 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
 
     @Override
-    public Boolean add(User user) {
+    public Boolean add(User user) throws Exception {
+        user.setUseful(1);
+        user.setState(0);
+
+        if(user.getNickname() == "")
+            user.setNickname(user.getName());
+        String salt = UUID.randomUUID().toString();
+        String password = MD5Utils.getEncode(user.getPassword(),salt);
+
+        user.setSalt(salt);
+        user.setPassword(password);
         this.save(user);
         return true;
+    }
+
+
+    @Override
+    public Boolean checkUser(User user) throws Exception {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name",user.getName());
+        if(list(queryWrapper).size() == 0)
+            return false;
+        User user1 = getOne(queryWrapper);
+        String checkPsd = MD5Utils.getEncode(user.getPassword(),user1.getSalt());
+
+        if(checkPsd.equals(user1.getPassword()))
+            return true;
+        return false;
     }
 
     @Override

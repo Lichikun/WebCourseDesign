@@ -27,7 +27,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                           Object handler) throws Exception {
 
         JwtTokenProvider jwtTokenProvider = new JwtTokenProvider();
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
 
         //如果是方法探测，直接通过
         if (HttpMethod.OPTIONS.equals(request.getMethod())) {
