@@ -48,35 +48,13 @@ public class LoginInterceptor implements HandlerInterceptor {
                 return true;
             }
         }
-        System.out.println(token);
         //进行token验证
         if(token == null || token.length() == 0){
             throw new MyException("token is Empty");
         }else{
-            String userID = "";
-            try{
-              userID = jwtTokenProvider.getUsernameFromToken(token);
-            }catch (JWTDecodeException e){
-                throw  new MyException("token Error");
-            };
+           if(!jwtTokenProvider.validateToken(token))
+                throw new MyException("token Mistake");
         }
-        /**
-         验证用户类，验证数据库中是否有该用户
-         //根据token中的userId查询数据库
-         Admin user = adminService.getById(userId);
-         if (user == null) {
-            throw new MyException(ResponseEnum.USER_EX.getCode(), ResponseEnum.USER_EX.getResultMessage());
-         }
-        */
-        //验证token
-        try{
-            System.out.println(6);
-            jwtTokenProvider.validateToken(token);
-        }catch (JWTVerificationException e){
-            System.out.println(7);
-            throw new MyException("token Mistake");
-        };
-
         return true;
     }
 
