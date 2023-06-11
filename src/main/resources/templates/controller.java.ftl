@@ -47,14 +47,11 @@ public class ${table.controllerName} {
     </#if>
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public Result save(@RequestBody ${entity} ${table.entityPath}) {
-        ${entity} Find${entity} = ${table.entityPath}Service.getByValue("name",${table.entityPath}.getName());
+
         Result result = new Result();
-        //业务 交给业务成 service 去处理
-        if(Find${entity} != null){
-            result.fail(${table.entityPath}.getName()+"已存在");
-        }else{
-            ${table.entityPath}Service.add(${table.entityPath});
-            result.success("添加成功");}
+
+        ${table.entityPath}Service.add(${table.entityPath});
+        result.success("添加成功");
 
         return result;
     }
@@ -80,13 +77,10 @@ public class ${table.controllerName} {
     @RequestMapping(method = RequestMethod.POST,value = "/update")
     public Result update(@RequestBody ${entity} ${table.entityPath}){
         Result result = new Result();
-        ${entity} Find${entity} = ${table.entityPath}Service.getByValue("name",${table.entityPath}.getName());
-        if(Find${entity}!=null && !Find${entity}.getId().equals(${table.entityPath}.getId())){
-            result.fail("书名"+${table.entityPath}.getName()+"已存在");
-        }else{
-            ${table.entityPath}Service.update(${table.entityPath});
-            result.success("修改成功");
-        }
+
+        ${table.entityPath}Service.update(${table.entityPath});
+        result.success("修改成功");
+
         return result;
     }
 
