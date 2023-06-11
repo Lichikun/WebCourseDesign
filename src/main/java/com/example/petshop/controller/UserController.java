@@ -1,5 +1,7 @@
 package com.example.petshop.controller;
 
+import com.example.petshop.common.config.SkipTokenValidation;
+import com.example.petshop.common.utils.JwtTokenProvider;
 import com.example.petshop.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +23,31 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-06-11
  */
 @RestController
-@RequestMapping("//user")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
+    private JwtTokenProvider jwtTokenProvider = new JwtTokenProvider();
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
+    public Result loginUser(@RequestBody User user) throws Exception {
+        Result result = new Result();
+        //业务 交给业务成 service 去处理
+        if(userService.checkUser(user)){
+            User us = userService.getByValue("name",user.getName());
+            us.setPassword(jwtTokenProvider.createToken(us.getName()));
+            us.setSalt("");
 
-    @RequestMapping(method = RequestMethod.POST, value = "ve")
-    public Result save(@RequestBody User user) {
+            result.setData(us);
+            result.success("登入成功");
+        }else
+            result.fail("用户名或密码错误，登入失败");
+        return result;
+    }
+
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST, value = "/save")
+    public Result save(@RequestBody User user) throws Exception {
         User FindUser = userService.getByValue("name",user.getName());
         Result result = new Result();
         //业务 交给业务成 service 去处理
@@ -36,7 +56,6 @@ public class UserController {
         }else{
             userService.add(user);
             result.success("添加成功");}
-
         return result;
     }
 

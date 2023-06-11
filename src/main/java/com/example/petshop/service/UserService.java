@@ -16,8 +16,9 @@ import java.util.List;
 */
 public interface UserService extends IService<User> {
 
-    Boolean add(User user);
+    Boolean add(User user) throws Exception;
     void deleteByIds(String ids);
+    Boolean checkUser(User user) throws Exception;
     Boolean update(User user);
     User getByValue(String value,String name);
     List<User> listByValue(String value,String name);
