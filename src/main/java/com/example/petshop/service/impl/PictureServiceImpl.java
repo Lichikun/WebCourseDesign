@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.mapper.PictureMapper;
 import com.example.petshop.entity.Picture;
 import com.example.petshop.service.PictureService;
@@ -83,12 +82,11 @@ public class PictureServiceImpl extends ServiceImpl<PictureMapper,Picture> imple
     }
 
     @Override
-    public Page<Picture> page(Integer pageNum,Integer pageSize,String name) {
+    public List<Picture> page(Integer pageNum, Integer pageSize,String belong_id) {
         Page<Picture> page = new Page<>(pageNum,pageSize);
-        QueryWrapper<Picture> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("name",name);
-
-        return this.page(page,queryWrapper);
+        QueryWrapper<Picture>queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("belong_id",belong_id);
+        return this.page(page,queryWrapper).getRecords();
     }
 
 }

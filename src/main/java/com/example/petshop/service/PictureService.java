@@ -1,7 +1,6 @@
 package com.example.petshop.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.petshop.entity.Picture;
 
 import java.util.List;
@@ -22,5 +21,5 @@ public interface PictureService extends IService<Picture> {
     Picture getByValue(String value,String name);
     List<Picture> listByValue(String value,String name);
     Boolean updateUsefulByIds(String id, Boolean flag);
-    Page<Picture> page(Integer pageNum, Integer pageSize, String name);
+    List<Picture> page(Integer pageNum, Integer pageSize,String belong_id);
 }
