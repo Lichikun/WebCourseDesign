@@ -11,7 +11,7 @@ import java.util.Date;
 public class JwtTokenProvider {
 
     private String secretKey = "jwtTokenConfirm";
-    private long validityInMilliseconds = 3600000;
+    private long validityInMilliseconds = 24 * 60 * 60 * 1000;
 
     //jwt.tokenSign
     public String createToken(String username) {
