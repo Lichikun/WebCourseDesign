@@ -12,7 +12,7 @@ public class MysqlGenerator {
     /**
      * 是否启动swagger
      */
-    private static final boolean blSwagger = true;
+    private static final boolean blSwagger = false;
     /**
      * 包所在路径
      */

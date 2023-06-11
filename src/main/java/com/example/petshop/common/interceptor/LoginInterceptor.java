@@ -48,7 +48,6 @@ public class LoginInterceptor implements HandlerInterceptor {
                 return true;
             }
         }
-        System.out.println(token);
         //进行token验证
         if(token == null || token.length() == 0){
             throw new MyException("token is Empty");
