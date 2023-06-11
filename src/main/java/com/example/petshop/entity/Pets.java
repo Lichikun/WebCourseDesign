@@ -69,6 +69,4 @@ public class Pets extends BaseEntity {
      * 0---没卖 1---卖了
      */
     private Integer stock;
-
-
 }
