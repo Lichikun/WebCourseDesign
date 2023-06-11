@@ -1,5 +1,6 @@
 package com.example.petshop.controller;
 
+import com.example.petshop.common.config.SkipTokenValidation;
 import com.example.petshop.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-06-11
  */
 @RestController
-@RequestMapping("//picture")
+@RequestMapping("/picture")
 public class PictureController {
     @Autowired
     private PictureService pictureService;
@@ -71,12 +72,12 @@ public class PictureController {
         result.setData(pictureService.listByValue(value,name));
         return result;
     }
-
+    @SkipTokenValidation
     @RequestMapping(method = RequestMethod.POST,value = "/page")
-    public Result page( Integer pageNum,Integer pageSize,String name ){
+    public Result page( Integer pageNum,Integer pageSize,String belong_id){
         Result result = new Result();
         result.success("获取list成功");
-        result.setData(pictureService.page(pageNum,pageSize,name));
+        result.setData(pictureService.page(pageNum,pageSize,belong_id));
         return result;
     }
 }
