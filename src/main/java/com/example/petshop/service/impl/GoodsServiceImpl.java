@@ -2,12 +2,11 @@ package com.example.petshop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.mapper.GoodsMapper;
 import com.example.petshop.entity.Goods;
 import com.example.petshop.service.GoodsService;
+import com.example.petshop.vo.goodsVo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -83,12 +82,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     }
 
     @Override
-    public Page<Goods> page(Integer pageNum,Integer pageSize,String name) {
-        Page<Goods> page = new Page<>(pageNum,pageSize);
-        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("name",name);
+    public List<goodsVo> page(Integer pageNum, Integer pageSize) {
 
-        return this.page(page,queryWrapper);
+        return this.baseMapper.pageByPurchase((pageNum-1)*pageSize,pageSize);
     }
 
 }
