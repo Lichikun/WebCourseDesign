@@ -19,9 +19,9 @@ public interface UserService extends IService<User> {
     Boolean add(User user) throws Exception;
     void deleteByIds(String ids);
     Boolean checkUser(User user) throws Exception;
-    Boolean update(User user);
+    Boolean update(User user) throws Exception;
     User getByValue(String value,String name);
     List<User> listByValue(String value,String name);
-    Boolean updateUsefulByIds(String id, Boolean flag);
+    Boolean updateUsefulByIds(String id, Integer flag) throws Exception;
     Page<User> page(Integer pageNum, Integer pageSize, String name);
 }

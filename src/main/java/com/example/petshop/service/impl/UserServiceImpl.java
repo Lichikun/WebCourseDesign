@@ -58,7 +58,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     }
 
     @Override
-    public Boolean update(User user) {
+    public Boolean update(User user) throws Exception {
+        if(!user.getPassword().isEmpty()){
+            String salt = UUID.randomUUID().toString();
+            String password = MD5Utils.getEncode(user.getPassword(),salt);
+            user.setSalt(salt);
+            user.setPassword(password);
+        }
+
         this.updateById(user);
         return true;
     }
@@ -74,7 +81,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     }
 
     @Override
-    public Boolean updateUsefulByIds(String ids, Boolean flag) {
+    public Boolean updateUsefulByIds(String ids, Integer flag) throws Exception {
         //ids  若干个id 用逗号隔开
         String[] aryIds = ids.split(",");
         for(String id: aryIds){
@@ -85,6 +92,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
             //修改数据
             User user = this.getOne(UpdateWrapper);
+            user.setUseful(flag);
 
             //执行
             this.update(user);

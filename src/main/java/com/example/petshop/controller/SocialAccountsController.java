@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-06-11
  */
 @RestController
-@RequestMapping("//social-accounts")
+@RequestMapping("/social-accounts")
 public class SocialAccountsController {
     @Autowired
     private SocialAccountsService socialAccountsService;

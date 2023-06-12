@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-06-11
  */
 @RestController
-@RequestMapping("//videofile")
+@RequestMapping("/videofile")
 public class VideofileController {
     @Autowired
     private VideofileService videofileService;

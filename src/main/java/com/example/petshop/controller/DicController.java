@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-06-11
  */
 @RestController
-@RequestMapping("//dic")
+@RequestMapping("/dic")
 public class DicController {
     @Autowired
     private DicService dicService;
