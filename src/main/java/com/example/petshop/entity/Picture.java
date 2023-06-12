@@ -34,5 +34,6 @@ public class Picture extends BaseEntity {
      */
     private String url;
 
+    private int state;
 
 }
