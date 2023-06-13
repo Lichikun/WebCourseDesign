@@ -27,6 +27,7 @@ public class DicServiceImpl extends ServiceImpl<DicMapper,Dic> implements DicSer
 
     @Override
     public Boolean add(Dic dic) {
+        dic.setUseful(1);
         this.save(dic);
         return true;
     }
@@ -48,7 +49,7 @@ public class DicServiceImpl extends ServiceImpl<DicMapper,Dic> implements DicSer
     }
 
     @Override
-    public Boolean updateUsefulByIds(String ids, Boolean flag) {
+    public Boolean updateUsefulByIds(String ids, Integer flag) {
         //ids  若干个id 用逗号隔开
         String[] aryIds = ids.split(",");
         for(String id: aryIds){
@@ -59,7 +60,7 @@ public class DicServiceImpl extends ServiceImpl<DicMapper,Dic> implements DicSer
 
             //修改数据
             Dic dic = this.getOne(UpdateWrapper);
-
+            dic.setUseful(flag);
             //执行
             this.update(dic);
         }
@@ -83,10 +84,10 @@ public class DicServiceImpl extends ServiceImpl<DicMapper,Dic> implements DicSer
     }
 
     @Override
-    public Page<Dic> page(Integer pageNum,Integer pageSize,String name) {
+    public Page<Dic> page(Integer pageNum,Integer pageSize,String value,String name) {
         Page<Dic> page = new Page<>(pageNum,pageSize);
         QueryWrapper<Dic> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("name",name);
+        queryWrapper.like(value,name);
 
         return this.page(page,queryWrapper);
     }

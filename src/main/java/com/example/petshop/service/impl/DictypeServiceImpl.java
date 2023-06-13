@@ -29,7 +29,7 @@ public class DictypeServiceImpl extends ServiceImpl<DictypeMapper,Dictype> imple
     @Override
     public Boolean add(Dictype dictype) {
         dictype.setCreateTime(LocalDateTime.now());
-        dictype.setUseful(0);
+        dictype.setUseful(1);
         this.save(dictype);
         return true;
     }
@@ -62,7 +62,7 @@ public class DictypeServiceImpl extends ServiceImpl<DictypeMapper,Dictype> imple
 
             //修改数据
             Dictype dictype = this.getOne(UpdateWrapper);
-
+            dictype.setUseful(flag);
             //执行
             this.update(dictype);
         }
