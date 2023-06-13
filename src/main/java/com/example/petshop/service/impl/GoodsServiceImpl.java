@@ -74,11 +74,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     }
 
     @Override
-    public List<Goods> listByValue (String value,String name){
-        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
-            queryWrapper.like(value,name);
+    public List<goodsVo> getById (String id){
 
-            return this.list(queryWrapper);
+            return this.baseMapper.getById(id);
     }
 
     @Override

@@ -64,12 +64,12 @@ public class GoodsController {
         result.success("更新成功");
         return result;
     }
-
-    @RequestMapping(method = RequestMethod.POST,value = "/list")
-    public Result listByValue(String value,String name){
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/getById")
+    public Result getById(String id){
         Result result = new Result();
-        result.success("获取list成功");
-        result.setData(goodsService.listByValue(value,name));
+        result.success("获取商品详情成功");
+        result.setData(goodsService.getById(id));
         return result;
     }
     @SkipTokenValidation

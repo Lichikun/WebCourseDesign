@@ -19,4 +19,7 @@ import java.util.List;
 public interface GoodsMapper extends BaseMapper<Goods> {
     @Select("SELECT *FROM goods JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=goods.id WHERE p.state=0 ORDER BY goods.purchase_quantity DESC LIMIT #{pageNum}, #{pageSize}")
     List<goodsVo> pageByPurchase(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+
+    @Select("SELECT *FROM goods JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=goods.id WHERE goods.id=#{id} ")
+    List<goodsVo> getById(@Param("id") String id);
 }

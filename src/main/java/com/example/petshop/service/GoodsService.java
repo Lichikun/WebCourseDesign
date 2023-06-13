@@ -20,7 +20,7 @@ public interface GoodsService extends IService<Goods> {
     void deleteByIds(String ids);
     Boolean update(Goods goods);
     Goods getByValue(String value,String name);
-    List<Goods> listByValue(String value,String name);
+    List<goodsVo> getById(String id);
     Boolean updateUsefulByIds(String id, Boolean flag);
     List<goodsVo> page(Integer pageNum, Integer pageSize);
 }
