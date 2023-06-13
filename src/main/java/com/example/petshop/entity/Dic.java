@@ -32,7 +32,7 @@ public class Dic extends BaseEntity {
     /**
      * 字典值
      */
-    private Integer value;
+    private String value;
 
     /**
      * 所属字典类型
