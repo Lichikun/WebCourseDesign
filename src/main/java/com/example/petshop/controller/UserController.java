@@ -69,7 +69,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "/update")
-    public Result update(@RequestBody User user){
+    public Result update(@RequestBody User user) throws Exception {
         Result result = new Result();
         User FindUser = userService.getByValue("name",user.getName());
         if(FindUser!=null && !FindUser.getId().equals(user.getId())){
@@ -83,7 +83,7 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.POST,value = "/updateUsefulByIds")
-    public Result updateUsefulByIds(String id,Boolean flag) {
+    public Result updateUsefulByIds(String id,Integer flag) throws Exception {
         Result result = new Result();
         userService.updateUsefulByIds(id,flag);
         result.success("更新成功");

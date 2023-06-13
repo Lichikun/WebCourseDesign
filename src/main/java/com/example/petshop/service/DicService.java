@@ -21,6 +21,6 @@ public interface DicService extends IService<Dic> {
     Boolean update(Dic dic);
     Dic getByValue(String value,String name);
     List<Dic> listByValue(String value,String name);
-    Boolean updateUsefulByIds(String id, Boolean flag);
-    Page<Dic> page(Integer pageNum, Integer pageSize, String name);
+    Boolean updateUsefulByIds(String id, Integer flag);
+    Page<Dic> page(Integer pageNum, Integer pageSize, String value,String name);
 }

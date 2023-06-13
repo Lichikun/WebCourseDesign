@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-06-11
  */
 @RestController
-@RequestMapping("//address")
+@RequestMapping("/address")
 public class AddressController {
     @Autowired
     private AddressService addressService;
