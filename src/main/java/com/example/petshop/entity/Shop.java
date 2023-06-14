@@ -47,7 +47,7 @@ public class Shop extends BaseEntity {
     /**
      * 商店介绍
      */
-    private String desc;
+    private String description;
 
     /**
      * 纬度

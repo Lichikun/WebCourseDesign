@@ -2,6 +2,11 @@ package com.example.petshop.mapper;
 
 import com.example.petshop.entity.Collect;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.petshop.vo.collectVo;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +17,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2023-06-11
  */
 public interface CollectMapper extends BaseMapper<Collect> {
-
+    @Select("SELECT c.user_id,c.user_name,c.pets_id, p.*, i.belong_id,i.url,i.state FROM collect c JOIN pets p ON c.pets_id = p.id JOIN picture i ON p.id = i.belong_id WHERE c.user_name = #{userName} AND i.state=0 LIMIT #{pageNum},#{pageSize};  ")
+    List<collectVo> pageByuserName(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("userName") String userName);
 }

@@ -34,5 +34,5 @@ public class Collect extends BaseEntity {
      */
     private String petsId;
 
-
+    private String userName;
 }

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-06-11
  */
 @RestController
-@RequestMapping("//collect")
+@RequestMapping("/collect")
 public class CollectController {
     @Autowired
     private CollectService collectService;
@@ -73,10 +73,10 @@ public class CollectController {
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "/page")
-    public Result page( Integer pageNum,Integer pageSize,String name ){
+    public Result page( Integer pageNum,Integer pageSize){
         Result result = new Result();
-        result.success("获取list成功");
-        result.setData(collectService.page(pageNum,pageSize,name));
+        result.success("获取收藏成功");
+        result.setData(collectService.page(pageNum,pageSize));
         return result;
     }
 }

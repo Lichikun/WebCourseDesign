@@ -63,7 +63,7 @@ public class Pets extends BaseEntity {
     /**
      * 宠物描述
      */
-    private String desc;
+    private String description;
 
     /**
      * 0---没卖 1---卖了

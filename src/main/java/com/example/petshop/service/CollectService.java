@@ -3,7 +3,7 @@ package com.example.petshop.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.petshop.entity.Collect;
-
+import com.example.petshop.vo.collectVo;
 import java.util.List;
 
 /**
@@ -22,5 +22,5 @@ public interface CollectService extends IService<Collect> {
     Collect getByValue(String value,String name);
     List<Collect> listByValue(String value,String name);
     Boolean updateUsefulByIds(String id, Boolean flag);
-    Page<Collect> page(Integer pageNum, Integer pageSize, String name);
+    List<collectVo> page(Integer pageNum, Integer pageSize);
 }

@@ -2,14 +2,15 @@ package com.example.petshop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.petshop.common.utils.DateTool;
+import com.example.petshop.common.utils.JwtTokenProvider;
 import com.example.petshop.mapper.CollectMapper;
 import com.example.petshop.entity.Collect;
 import com.example.petshop.service.CollectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.example.petshop.vo.collectVo;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,8 @@ import java.util.List;
 */
 @Service
 public class CollectServiceImpl extends ServiceImpl<CollectMapper,Collect> implements CollectService {
+    @Autowired
+    private HttpServletRequest request;
 
 
     @Override
@@ -83,12 +86,12 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper,Collect> imple
     }
 
     @Override
-    public Page<Collect> page(Integer pageNum,Integer pageSize,String name) {
-        Page<Collect> page = new Page<>(pageNum,pageSize);
-        QueryWrapper<Collect> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("name",name);
+    public List<collectVo> page(Integer pageNum, Integer pageSize) {
+        String token = request.getHeader("Authorization");
+        JwtTokenProvider jwtTokenProvider=new JwtTokenProvider();
+        String userName=jwtTokenProvider.getUsernameFromToken(token);
+        return this.baseMapper.pageByuserName((pageNum-1)*pageSize,pageSize,userName);
 
-        return this.page(page,queryWrapper);
     }
 
 }
