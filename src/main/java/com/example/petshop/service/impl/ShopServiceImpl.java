@@ -48,7 +48,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
     }
 
     @Override
-    public Boolean updateUsefulByIds(String ids, Boolean flag) {
+    public Boolean updateUsefulByIds(String ids, Integer flag) {
         //ids  若干个id 用逗号隔开
         String[] aryIds = ids.split(",");
         for(String id: aryIds){
@@ -59,6 +59,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
 
             //修改数据
             Shop shop = this.getOne(UpdateWrapper);
+            shop.setUseful(flag);
 
             //执行
             this.update(shop);
@@ -83,10 +84,10 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
     }
 
     @Override
-    public Page<Shop> page(Integer pageNum,Integer pageSize,String name) {
+    public Page<Shop> page(Integer pageNum,Integer pageSize,String value,String name) {
         Page<Shop> page = new Page<>(pageNum,pageSize);
         QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("name",name);
+        queryWrapper.like(value,name);
 
         return this.page(page,queryWrapper);
     }

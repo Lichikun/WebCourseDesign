@@ -57,7 +57,7 @@ public class PetsController {
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "/updateUsefulByIds")
-    public Result updateUsefulByIds(String id,Boolean flag) {
+    public Result updateUsefulByIds(String id,Integer flag) {
         Result result = new Result();
         petsService.updateUsefulByIds(id,flag);
         result.success("更新成功");
@@ -73,10 +73,10 @@ public class PetsController {
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "/page")
-    public Result page( Integer pageNum,Integer pageSize,String name ){
+    public Result page( Integer pageNum,Integer pageSize,String value,String name ){
         Result result = new Result();
         result.success("获取list成功");
-        result.setData(petsService.page(pageNum,pageSize,name));
+        result.setData(petsService.page(pageNum,pageSize,value,name));
         return result;
     }
 }

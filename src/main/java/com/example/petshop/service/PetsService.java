@@ -21,6 +21,6 @@ public interface PetsService extends IService<Pets> {
     Boolean update(Pets pets);
     Pets getByValue(String value,String name);
     List<Pets> listByValue(String value,String name);
-    Boolean updateUsefulByIds(String id, Boolean flag);
-    Page<Pets> page(Integer pageNum, Integer pageSize, String name);
+    Boolean updateUsefulByIds(String id, Integer flag);
+    Page<Pets> page(Integer pageNum, Integer pageSize,String value, String name);
 }
