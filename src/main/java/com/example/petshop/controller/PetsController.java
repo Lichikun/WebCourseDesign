@@ -79,4 +79,11 @@ public class PetsController {
         result.setData(petsService.page(pageNum,pageSize,value,name));
         return result;
     }
+    @RequestMapping(method = RequestMethod.POST,value = "/getResultById")
+    public Result getResultById(String id){
+        Result result = new Result();
+        result.success("获取宠物信息成功");
+        result.setData(petsService.getResultById(id));
+        return result;
+    }
 }
