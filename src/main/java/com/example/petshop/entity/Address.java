@@ -69,5 +69,30 @@ public class Address extends BaseEntity {
      */
     private Integer useful;
 
+    /**
+     * 省-市-区
+     */
+    private String label;
+
+    /**
+     * 三级数组之序列1
+     */
+    private String arr1;
+
+    /**
+     * 三级数组之序列2
+     */
+    private String arr2;
+
+    /**
+     * 三级数组之序列3
+     */
+    private String arr3;
+
+    /**
+     * 城市编号
+     */
+    private String cityCode;
+
 
 }
