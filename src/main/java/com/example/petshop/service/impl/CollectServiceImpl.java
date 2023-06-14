@@ -7,6 +7,7 @@ import com.example.petshop.common.utils.JwtTokenProvider;
 import com.example.petshop.mapper.CollectMapper;
 import com.example.petshop.entity.Collect;
 import com.example.petshop.service.CollectService;
+import com.example.petshop.vo.collectVoGoods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.petshop.vo.collectVo;
@@ -92,6 +93,14 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper,Collect> imple
         String userName=jwtTokenProvider.getUsernameFromToken(token);
         return this.baseMapper.pageByuserName((pageNum-1)*pageSize,pageSize,userName);
 
+    }
+
+    @Override
+    public List<collectVoGoods> pageToGetGoods(Integer pageNum, Integer pageSize) {
+        String token = request.getHeader("Authorization");
+        JwtTokenProvider jwtTokenProvider=new JwtTokenProvider();
+        String userName=jwtTokenProvider.getUsernameFromToken(token);
+        return this.baseMapper.pageToGetGoods((pageNum-1)*pageSize,pageSize,userName);
     }
 
 }

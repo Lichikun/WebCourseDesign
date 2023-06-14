@@ -8,6 +8,7 @@ import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.mapper.PetsMapper;
 import com.example.petshop.entity.Pets;
 import com.example.petshop.service.PetsService;
+import com.example.petshop.vo.petsVo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -90,6 +91,11 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
         queryWrapper.like(value,name);
 
         return this.page(page,queryWrapper);
+    }
+
+    @Override
+    public List<petsVo> getResultById(String id) {
+        return this.baseMapper.getById(id);
     }
 
 }
