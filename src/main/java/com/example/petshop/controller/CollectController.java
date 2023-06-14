@@ -75,8 +75,15 @@ public class CollectController {
     @RequestMapping(method = RequestMethod.POST,value = "/page")
     public Result page( Integer pageNum,Integer pageSize){
         Result result = new Result();
-        result.success("获取收藏成功");
+        result.success("获取收藏宠物成功");
         result.setData(collectService.page(pageNum,pageSize));
         return result;
-    }
+    }//获取收藏的宠物
+    @RequestMapping(method = RequestMethod.POST,value = "/pageToGetGoods")
+    public Result pageToGetGoods( Integer pageNum,Integer pageSize){
+        Result result = new Result();
+        result.success("获取收藏宠物成功");
+        result.setData(collectService.pageToGetGoods(pageNum,pageSize));
+        return result;
+    }//获取收藏的商品
 }

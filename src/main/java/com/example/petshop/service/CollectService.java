@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.petshop.entity.Collect;
 import com.example.petshop.vo.collectVo;
 import java.util.List;
-
+import com.example.petshop.vo.collectVoGoods;
 /**
 * <p>
     * 收藏表，用于会员收藏宠物 服务类接口
@@ -23,4 +23,5 @@ public interface CollectService extends IService<Collect> {
     List<Collect> listByValue(String value,String name);
     Boolean updateUsefulByIds(String id, Boolean flag);
     List<collectVo> page(Integer pageNum, Integer pageSize);
+    List<collectVoGoods>pageToGetGoods(Integer pageNum, Integer pageSize);
 }
