@@ -3,14 +3,15 @@ package com.example.petshop.controller;
 import com.example.petshop.common.config.SkipTokenValidation;
 import com.example.petshop.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.boot.system.ApplicationHome;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.petshop.entity.Picture;
 import com.example.petshop.service.PictureService;
+import org.springframework.web.multipart.MultipartFile;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.io.File;
+import java.util.UUID;
 
 
 /**
@@ -80,4 +81,85 @@ public class PictureController {
         result.setData(pictureService.page(pageNum,pageSize,belong_id));
         return result;
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/uploadAvatar")
+    public Result editImg(MultipartFile file) throws Exception {
+        Result result = new Result();
+        if(file.isEmpty()){
+            result.fail("图片上传失败");
+        }
+        String originalFilename = file.getOriginalFilename();
+        String ext = "." + originalFilename.split("\\.")[1];
+        String uuid = UUID.randomUUID().toString().replace("-","");
+        String filename = uuid + ext;
+        System.out.println(filename);
+        String pre = "C:/image/avatar/";
+        String path = pre + filename;
+        file.transferTo(new File(path));
+        result.setData(filename);
+        result.success("保存成功");
+        return result;
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/uploadCarousel")
+    public Result editImg1(MultipartFile file) throws Exception {
+        Result result = new Result();
+        if(file.isEmpty()){
+            result.fail("图片上传失败");
+        }
+        String originalFilename = file.getOriginalFilename();
+        String ext = "." + originalFilename.split("\\.")[1];
+        String uuid = UUID.randomUUID().toString().replace("-","");
+        String filename = uuid + ext;
+        System.out.println(filename);
+        String pre = "C:/image/carousel/";
+        String path = pre + filename;
+        file.transferTo(new File(path));
+        result.setData(filename);
+        result.success("保存成功");
+        return result;
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/uploadGoods")
+    public Result editImg2(MultipartFile file) throws Exception {
+        Result result = new Result();
+        if(file.isEmpty()){
+            result.fail("图片上传失败");
+        }
+        String originalFilename = file.getOriginalFilename();
+        String ext = "." + originalFilename.split("\\.")[1];
+        String uuid = UUID.randomUUID().toString().replace("-","");
+        String filename = uuid + ext;
+        System.out.println(filename);
+        String pre = "C:/image/goods/";
+        String path = pre + filename;
+        file.transferTo(new File(path));
+        result.setData(filename);
+        result.success("保存成功");
+        return result;
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/uploadPet")
+    public Result editImg3(MultipartFile file) throws Exception {
+        Result result = new Result();
+        if(file.isEmpty()){
+            result.fail("图片上传失败");
+        }
+        String originalFilename = file.getOriginalFilename();
+        String ext = "." + originalFilename.split("\\.")[1];
+        String uuid = UUID.randomUUID().toString().replace("-","");
+        String filename = uuid + ext;
+        System.out.println(filename);
+        String pre = "C:/image/pet/";
+        String path = pre + filename;
+        file.transferTo(new File(path));
+        result.setData(filename);
+        result.success("保存成功");
+        return result;
+    }
+
+
 }
