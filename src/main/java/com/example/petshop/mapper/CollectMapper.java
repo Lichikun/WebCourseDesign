@@ -22,4 +22,6 @@ public interface CollectMapper extends BaseMapper<Collect> {
     List<collectVo> pageByuserName(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("userName") String userName);
     @Select("SELECT c.user_id,c.user_name,c.pets_id, g.*, i.belong_id,i.url,i.state FROM collect c JOIN goods g ON c.pets_id = g.id JOIN picture i ON g.id = i.belong_id WHERE c.user_name =#{userName} AND i.state=0 LIMIT #{pageNum},#{pageSize};  ")
     List<collectVoGoods> pageToGetGoods(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize, @Param("userName") String userName);
+    @Select("SELECT id FROM user WHERE name=#{userName}")
+    String getUserId(@Param("userName") String userName);
 }
