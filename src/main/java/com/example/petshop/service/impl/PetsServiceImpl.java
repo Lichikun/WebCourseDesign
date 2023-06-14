@@ -48,7 +48,7 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
     }
 
     @Override
-    public Boolean updateUsefulByIds(String ids, Boolean flag) {
+    public Boolean updateUsefulByIds(String ids, Integer flag) {
         //ids  若干个id 用逗号隔开
         String[] aryIds = ids.split(",");
         for(String id: aryIds){
@@ -59,6 +59,7 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
 
             //修改数据
             Pets pets = this.getOne(UpdateWrapper);
+            pets.setUseful(flag);
 
             //执行
             this.update(pets);
@@ -83,10 +84,10 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
     }
 
     @Override
-    public Page<Pets> page(Integer pageNum,Integer pageSize,String name) {
+    public Page<Pets> page(Integer pageNum,Integer pageSize,String value,String name) {
         Page<Pets> page = new Page<>(pageNum,pageSize);
         QueryWrapper<Pets> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("name",name);
+        queryWrapper.like(value,name);
 
         return this.page(page,queryWrapper);
     }

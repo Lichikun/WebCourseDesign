@@ -40,6 +40,13 @@
         </dependency>
         <!--Mysql-->
 
+        <!-- https://mvnrepository.com/artifact/ch.ethz.ganymed/ganymed-ssh2 -->
+        <dependency>
+            <groupId>ch.ethz.ganymed</groupId>
+            <artifactId>ganymed-ssh2</artifactId>
+            <version>262</version>
+        </dependency>
+
         <!--mybatis-plus依赖-->
         <dependency>
             <groupId>com.baomidou</groupId>
