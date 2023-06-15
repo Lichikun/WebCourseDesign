@@ -85,4 +85,10 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
         return this.baseMapper.pageByPurchase((pageNum-1)*pageSize,pageSize);
     }
 
+    @Override
+    public List<goodsVo> search(String name) {
+        List<goodsVo> b=baseMapper.search(name);
+        return b;
+    }
+
 }
