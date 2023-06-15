@@ -24,4 +24,6 @@ public interface CollectService extends IService<Collect> {
     Boolean updateUsefulByIds(String id, Boolean flag);
     List<collectVo> page(Integer pageNum, Integer pageSize);
     List<collectVoGoods>pageToGetGoods(Integer pageNum, Integer pageSize);
+    Boolean isCollect(String id);
+    Boolean addOrDeleteCollect(String id);
 }

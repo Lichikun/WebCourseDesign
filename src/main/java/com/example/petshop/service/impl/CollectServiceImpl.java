@@ -103,4 +103,46 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper,Collect> imple
         return this.baseMapper.pageToGetGoods((pageNum-1)*pageSize,pageSize,userName);
     }
 
+    @Override
+    public Boolean isCollect(String id) {
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("pets_id",id);
+        String token = request.getHeader("Authorization");
+        JwtTokenProvider jwtTokenProvider=new JwtTokenProvider();
+        String userName=jwtTokenProvider.getUsernameFromToken(token);
+        queryWrapper.eq("user_name",userName);
+        Collect collect=getOne(queryWrapper);
+        if(collect==null) {
+            return false;
+
+        }
+
+            return true;
+    }
+
+    @Override
+    public Boolean addOrDeleteCollect(String id) {//iskeep这里没用到
+        QueryWrapper queryWrapper1=new QueryWrapper();
+        String token = request.getHeader("Authorization");
+        JwtTokenProvider jwtTokenProvider=new JwtTokenProvider();
+        String userName=jwtTokenProvider.getUsernameFromToken(token);
+        queryWrapper1.eq("pets_id",id);
+        queryWrapper1.eq("user_name",userName);
+        Collect collect=getOne(queryWrapper1);
+        if(collect==null){
+            collect=new Collect();
+            collect.setPetsId(id);
+            collect.setUserName(userName);
+            collect.setUserId(this.baseMapper.getUserId(userName));
+            add(collect);
+        }
+        else{
+            remove(queryWrapper1);
+        }
+
+        return true;
+
+    }
+
+
 }

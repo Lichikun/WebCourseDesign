@@ -86,4 +86,18 @@ public class CollectController {
         result.setData(collectService.pageToGetGoods(pageNum,pageSize));
         return result;
     }//获取收藏的商品
+    @RequestMapping(method = RequestMethod.POST,value = "/isCollect")
+    public Result isCollect( String id){
+        Result result = new Result();
+        result.success("获取收藏宠物成功");
+        result.setData(collectService.isCollect(id));
+        return result;
+    }//判断是否收藏
+    @RequestMapping(method = RequestMethod.POST,value = "/addOrDeleteCollect")
+    public Result addOrDeleteCollect( String id){//iskeep没用到
+        Result result = new Result();
+        result.success("获取收藏宠物成功");
+        result.setData(collectService.addOrDeleteCollect(id));
+        return result;
+    }//判断是否收藏
 }
