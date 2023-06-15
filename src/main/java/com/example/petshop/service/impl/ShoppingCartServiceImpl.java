@@ -27,7 +27,8 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper,Shop
 
     @Override
     public Boolean add(ShoppingCart shoppingCart) {
-        shoppingCart.setGoodsNum(1);
+        if (shoppingCart.getGoodsNum() == null)
+            shoppingCart.setGoodsNum(1);
         shoppingCart.setOpt(0);
         this.save(shoppingCart);
         return true;
