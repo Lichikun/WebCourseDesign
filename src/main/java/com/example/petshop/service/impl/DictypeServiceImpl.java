@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.petshop.common.config.SkipTokenValidation;
 import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.mapper.DictypeMapper;
 import com.example.petshop.entity.Dictype;
@@ -92,6 +93,18 @@ public class DictypeServiceImpl extends ServiceImpl<DictypeMapper,Dictype> imple
         queryWrapper.like("name",name);
 
         return this.page(page,queryWrapper);
+    }
+
+    @Override
+    @SkipTokenValidation
+    public List<Dictype> getCategoryDic(String fromPage) {
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("from_page",fromPage);
+        List<Dictype>dic=list(queryWrapper);
+        for(int i=0;i<dic.size();i++){
+                dic.get(i).setEtc(this.baseMapper.getDicbyid(dic.get(i).getId()));
+        }
+        return dic;
     }
 
 }
