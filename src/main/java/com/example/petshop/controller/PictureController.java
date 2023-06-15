@@ -92,7 +92,6 @@ public class PictureController {
         String ext = "." + originalFilename.split("\\.")[1];
         String uuid = UUID.randomUUID().toString().replace("-","");
         String filename = uuid + ext;
-        System.out.println(filename);
         String pre = "C:/image/avatar/";
         String path = pre + filename;
         file.transferTo(new File(path));

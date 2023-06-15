@@ -11,6 +11,8 @@ import com.example.petshop.service.ShoppingCartService;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 /**
  * <p>
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-06-11
  */
 @RestController
-@RequestMapping("/shopping-cart")
+@RequestMapping("/shoppingCart")
 public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
@@ -30,10 +32,15 @@ public class ShoppingCartController {
     public Result save(@RequestBody ShoppingCart shoppingCart) {
 
         Result result = new Result();
-
-        shoppingCartService.add(shoppingCart);
-        result.success("添加成功");
-
+        ShoppingCart findShoppingCart = shoppingCartService.getOneCart(shoppingCart.getUserId(),shoppingCart.getGoodsId());
+        if(findShoppingCart != null){
+            findShoppingCart.setGoodsNum(findShoppingCart.getGoodsNum()+shoppingCart.getGoodsNum());
+            shoppingCartService.update(findShoppingCart);
+            result.success("商品重复添加成功");
+        } else {
+            shoppingCartService.add(shoppingCart);
+            result.success("");
+        }
         return result;
     }
 
@@ -49,7 +56,6 @@ public class ShoppingCartController {
     @RequestMapping(method = RequestMethod.POST,value = "/update")
     public Result update(@RequestBody ShoppingCart shoppingCart){
         Result result = new Result();
-
         shoppingCartService.update(shoppingCart);
         result.success("修改成功");
 
@@ -57,7 +63,7 @@ public class ShoppingCartController {
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "/updateUsefulByIds")
-    public Result updateUsefulByIds(String id,Boolean flag) {
+    public Result updateUsefulByIds(String id,Integer flag) {
         Result result = new Result();
         shoppingCartService.updateUsefulByIds(id,flag);
         result.success("更新成功");
@@ -79,4 +85,17 @@ public class ShoppingCartController {
         result.setData(shoppingCartService.page(pageNum,pageSize,name));
         return result;
     }
+    @RequestMapping(method = RequestMethod.POST, value = "/getCartList")
+    public Result getCartList(String userId){
+        Result result = new Result();
+        String ids = "";
+        List<ShoppingCart> findCart = shoppingCartService.listEqByValue("user_id",userId);
+        for(int i = 0;i < findCart.size();i++){
+            ids += findCart.get(i).getId() + ",";
+        }
+        result.setData(shoppingCartService.getOrderList(ids));
+        result.success("获取成功");
+        return result;
+    }
+
 }
