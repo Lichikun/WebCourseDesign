@@ -23,4 +23,5 @@ public interface DictypeService extends IService<Dictype> {
     List<Dictype> listByValue(String value,String name);
     Boolean updateUsefulByIds(String id, Integer flag);
     Page<Dictype> page(Integer pageNum, Integer pageSize, String name);
+    List<Dictype>getCategoryDic(String fromPage);
 }

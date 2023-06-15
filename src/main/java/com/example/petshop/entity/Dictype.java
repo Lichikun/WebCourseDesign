@@ -45,5 +45,6 @@ public class Dictype extends BaseEntity {
      */
     private LocalDateTime createTime;
 
+    private String fromPage;
 
 }

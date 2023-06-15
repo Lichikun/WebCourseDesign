@@ -57,4 +57,6 @@ public class Goods extends BaseEntity {
 
     private int purchaseQuantity;
 
+    private String category;
+
 }

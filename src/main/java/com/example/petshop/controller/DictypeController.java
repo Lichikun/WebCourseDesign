@@ -79,4 +79,12 @@ public class DictypeController {
         result.setData(dictypeService.page(pageNum,pageSize,name));
         return result;
     }
+    @RequestMapping(method = RequestMethod.POST,value = "/getCategoryDic")
+    public Result getCategoryDic(String fromPage){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(dictypeService.getCategoryDic(fromPage));
+        return result;
+    }
+
 }
