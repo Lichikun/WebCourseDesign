@@ -50,7 +50,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper,Shop
     }
 
     @Override
-    public Boolean updateUsefulByIds(String ids, Boolean flag) {
+    public Boolean updateUsefulByIds(String ids, Integer flag) {
         //ids  若干个id 用逗号隔开
         String[] aryIds = ids.split(",");
         for(String id: aryIds){
@@ -61,6 +61,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper,Shop
 
             //修改数据
             ShoppingCart shoppingCart = this.getOne(UpdateWrapper);
+            shoppingCart.setOpt(flag);
 
             //执行
             this.update(shoppingCart);

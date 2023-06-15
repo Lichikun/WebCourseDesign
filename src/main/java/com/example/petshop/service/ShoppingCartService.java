@@ -22,7 +22,7 @@ public interface ShoppingCartService extends IService<ShoppingCart> {
     Boolean update(ShoppingCart shoppingCart);
     ShoppingCart getByValue(String value,String name);
     List<ShoppingCart> listByValue(String value,String name);
-    Boolean updateUsefulByIds(String id, Boolean flag);
+    Boolean updateUsefulByIds(String id, Integer flag);
     List<ShoppingCart> listEqByValue(String value, String name);
     Page<ShoppingCart> page(Integer pageNum, Integer pageSize, String name);
     ShoppingCart getOneCart(String userId, String goodsId);

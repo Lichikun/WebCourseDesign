@@ -63,7 +63,7 @@ public class ShoppingCartController {
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "/updateUsefulByIds")
-    public Result updateUsefulByIds(String id,Boolean flag) {
+    public Result updateUsefulByIds(String id,Integer flag) {
         Result result = new Result();
         shoppingCartService.updateUsefulByIds(id,flag);
         result.success("更新成功");
