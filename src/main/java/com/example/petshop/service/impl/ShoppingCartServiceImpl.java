@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.mapper.ShoppingCartMapper;
 import com.example.petshop.entity.ShoppingCart;
 import com.example.petshop.service.ShoppingCartService;
+import com.example.petshop.vo.shoppingCartVo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,6 +27,8 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper,Shop
 
     @Override
     public Boolean add(ShoppingCart shoppingCart) {
+        shoppingCart.setGoodsNum(1);
+        shoppingCart.setOpt(0);
         this.save(shoppingCart);
         return true;
     }
@@ -83,6 +85,13 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper,Shop
     }
 
     @Override
+    public List<ShoppingCart> listEqByValue (String value,String name){
+        QueryWrapper<ShoppingCart> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(value,name);
+        return this.list(queryWrapper);
+    }
+
+    @Override
     public Page<ShoppingCart> page(Integer pageNum,Integer pageSize,String name) {
         Page<ShoppingCart> page = new Page<>(pageNum,pageSize);
         QueryWrapper<ShoppingCart> queryWrapper = new QueryWrapper<>();
@@ -91,4 +100,21 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper,Shop
         return this.page(page,queryWrapper);
     }
 
+    @Override
+    public ShoppingCart getOneCart(String userId, String goodsId) {
+        QueryWrapper<ShoppingCart> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id",userId);
+        queryWrapper.eq("goods_id",goodsId);
+        return this.getOne(queryWrapper);
+    }
+
+    @Override
+    public List<shoppingCartVo> getOrderList(String ids) {
+        List<shoppingCartVo> list = new ArrayList<>();
+        String[] aryIds = ids.split(",");
+        for(String id: aryIds){
+            list.addAll(baseMapper.getByCartId(id));
+        }
+        return list;
+    }
 }
