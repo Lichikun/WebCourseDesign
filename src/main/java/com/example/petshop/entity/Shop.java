@@ -59,5 +59,7 @@ public class Shop extends BaseEntity {
      */
     private String longitude;
 
+    private String picture;
+
 
 }
