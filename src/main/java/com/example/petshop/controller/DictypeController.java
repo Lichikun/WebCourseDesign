@@ -1,5 +1,6 @@
 package com.example.petshop.controller;
 
+import com.example.petshop.common.config.SkipTokenValidation;
 import com.example.petshop.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,6 +80,7 @@ public class DictypeController {
         result.setData(dictypeService.page(pageNum,pageSize,name));
         return result;
     }
+    @SkipTokenValidation
     @RequestMapping(method = RequestMethod.POST,value = "/getCategoryDic")
     public Result getCategoryDic(String fromPage){
         Result result = new Result();

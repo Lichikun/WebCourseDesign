@@ -92,6 +92,17 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     }
 
     @Override
+    public List<goodsVo> pageByGoods(String pageFrom, String type, Integer pageNum, Integer pageSize, String orderByDsc, String orderAsc) {
+        if(pageFrom.equals("home")){
+            return this.baseMapper.getHomePageGoods((pageNum-1)*pageSize,pageSize,orderByDsc,orderAsc);
+        }else {
+            return this.baseMapper.getCategoryPageGoods((pageNum-1)*pageSize,pageSize,type,orderByDsc,orderAsc);
+        }
+
+
+    }
+  
+    @Override
     public List<goodsVo> downQuantitySearch(Integer pageNum, Integer pageSize,String name) {
         List<goodsVo> b=baseMapper.downQuantitySearch(pageNum,pageSize,name);
         return b;
