@@ -23,7 +23,18 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     @Select("SELECT *FROM goods JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=goods.id WHERE goods.id=#{id} ")
     List<goodsVo> getById(@Param("id") String id);
 
-    @Select("SELECT * FROM goods JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE name LIKE '%${name}%' AND p.state = 0 ORDER BY goods.purchase_quantity")
-    List<goodsVo> search(@Param("name") String name);
+    @Select("SELECT * FROM goods JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE name LIKE '%${name}%' AND p.state = 0  LIMIT #{pageNum}, #{pageSize}")
+    List<goodsVo> search(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("name") String name);
 
+    @Select("SELECT * FROM goods JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE name LIKE '%${name}%' AND p.state = 0 ORDER BY goods.purchase_quantity DESC LIMIT #{pageNum}, #{pageSize}")
+    List<goodsVo> downQuantitySearch(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("name") String name);
+
+    @Select("SELECT * FROM goods JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE name LIKE '%${name}%' AND p.state = 0 ORDER BY goods.purchase_quantity ASC LIMIT #{pageNum}, #{pageSize}")
+    List<goodsVo> upQuantitySearch(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("name") String name);
+
+    @Select("SELECT * FROM goods JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE name LIKE '%${name}%' AND p.state = 0 ORDER BY goods.price DESC LIMIT #{pageNum}, #{pageSize}")
+    List<goodsVo> downPriceSearch(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("name") String name);
+
+    @Select("SELECT * FROM goods JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE name LIKE '%${name}%' AND p.state = 0 ORDER BY goods.price ASC LIMIT #{pageNum}, #{pageSize}")
+    List<goodsVo> upPriceSearch(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("name") String name);
 }

@@ -89,10 +89,26 @@ public class PetsController {
     }
     @SkipTokenValidation
     @RequestMapping(method = RequestMethod.POST,value = "/search")
-    public Result Search( String name ){
+    public Result search( Integer pageNum,Integer pageSize,String type ){
         Result result = new Result();
         result.success("获取list成功");
-        result.setData(petsService.search(name));
+        result.setData(petsService.search(pageNum,pageSize,type));
+        return result;
+    }
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/downPriceSearch")
+    public Result downPriceSearch( Integer pageNum,Integer pageSize,String type ){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(petsService.downPriceSearch(pageNum,pageSize,type));
+        return result;
+    }
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/upPriceSearch")
+    public Result upPriceSearch( Integer pageNum,Integer pageSize,String type ){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(petsService.upPriceSearch(pageNum,pageSize,type));
         return result;
     }
 }

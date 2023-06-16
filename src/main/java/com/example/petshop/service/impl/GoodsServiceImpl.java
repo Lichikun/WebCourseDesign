@@ -86,9 +86,32 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     }
 
     @Override
-    public List<goodsVo> search(String name) {
-        List<goodsVo> b=baseMapper.search(name);
+    public List<goodsVo> search(Integer pageNum, Integer pageSize,String name) {
+        List<goodsVo> b=baseMapper.search(pageNum,pageSize,name);
         return b;
     }
 
+    @Override
+    public List<goodsVo> downQuantitySearch(Integer pageNum, Integer pageSize,String name) {
+        List<goodsVo> b=baseMapper.downQuantitySearch(pageNum,pageSize,name);
+        return b;
+    }
+
+    @Override
+    public List<goodsVo> upQuantitySearch(Integer pageNum, Integer pageSize,String name) {
+        List<goodsVo> b=baseMapper.upQuantitySearch(pageNum,pageSize,name);
+        return b;
+    }
+
+    @Override
+    public List<goodsVo> downPriceSearch(Integer pageNum, Integer pageSize,String name) {
+        List<goodsVo> b=baseMapper.downPriceSearch(pageNum,pageSize,name);
+        return b;
+    }
+
+    @Override
+    public List<goodsVo> upPriceSearch(Integer pageNum, Integer pageSize,String name) {
+        List<goodsVo> b=baseMapper.upQuantitySearch(pageNum,pageSize,name);
+        return b;
+    }
 }

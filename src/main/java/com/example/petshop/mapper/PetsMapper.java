@@ -21,6 +21,12 @@ public interface PetsMapper extends BaseMapper<Pets> {
     @Select("SELECT *FROM pets JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=pets.id WHERE pets.id=#{id} ")
     List<petsVo> getById(@Param("id") String id);//得到宠物详细信息
 
-    @Select("SELECT * FROM pets JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE name LIKE '%${name}%' AND p.state = 0")
-    List<petsVo> search(@Param("name") String name);
+    @Select("SELECT * FROM pets JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE type LIKE '%${type}%' AND p.state = 0  LIMIT #{pageNum}, #{pageSize}")
+    List<petsVo> search(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("type") String type);
+
+    @Select("SELECT * FROM pets JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE type LIKE '%${type}%' AND p.state = 0 ORDER BY pets.price DESC LIMIT #{pageNum}, #{pageSize}")
+    List<petsVo> downPriceSearch(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("type") String type);
+
+    @Select("SELECT * FROM pets JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE type LIKE '%${type}%' AND p.state = 0 ORDER BY pets.price ASC LIMIT #{pageNum}, #{pageSize}")
+    List<petsVo> upPriceSearch(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("type") String type);
 }

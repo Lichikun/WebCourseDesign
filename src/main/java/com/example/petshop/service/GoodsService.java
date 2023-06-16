@@ -23,5 +23,9 @@ public interface GoodsService extends IService<Goods> {
     List<goodsVo> getById(String id);
     Boolean updateUsefulByIds(String id, Boolean flag);
     List<goodsVo> page(Integer pageNum, Integer pageSize);
-    List<goodsVo> search(String name);
+    List<goodsVo> search(Integer pageNum, Integer pageSize,String name);
+    List<goodsVo> downQuantitySearch(Integer pageNum, Integer pageSize,String name);
+    List<goodsVo> upQuantitySearch(Integer pageNum, Integer pageSize,String name);
+    List<goodsVo> downPriceSearch(Integer pageNum, Integer pageSize,String name);
+    List<goodsVo> upPriceSearch(Integer pageNum, Integer pageSize,String name);
 }
