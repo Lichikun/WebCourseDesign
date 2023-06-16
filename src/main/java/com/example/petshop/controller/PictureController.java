@@ -125,20 +125,24 @@ public class PictureController {
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/uploadGoods")
-    public Result editImg2(MultipartFile file) throws Exception {
+    public Result editImg2(MultipartFile[] file) throws Exception {
         Result result = new Result();
-        if(file.isEmpty()){
-            result.fail("图片上传失败");
+        List<String> fileList = new ArrayList<>();
+        for(int i = 0; i< file.length ; i++){
+            if(file[i].isEmpty()){
+                result.fail("图片上传失败");
+            }
+            String originalFilename = file[i].getOriginalFilename();
+            String ext = "." + originalFilename.split("\\.")[1];
+            String uuid = UUID.randomUUID().toString().replace("-","");
+            String filename = uuid + ext;
+            System.out.println(filename);
+            String pre = "C:/image/goods/";
+            String path = pre + filename;
+            file[i].transferTo(new File(path));
+            fileList.add(filename);
         }
-        String originalFilename = file.getOriginalFilename();
-        String ext = "." + originalFilename.split("\\.")[1];
-        String uuid = UUID.randomUUID().toString().replace("-","");
-        String filename = uuid + ext;
-        System.out.println(filename);
-        String pre = "C:/image/goods/";
-        String path = pre + filename;
-        file.transferTo(new File(path));
-        result.setData(filename);
+        result.setData(fileList);
         result.success("保存成功");
         return result;
     }

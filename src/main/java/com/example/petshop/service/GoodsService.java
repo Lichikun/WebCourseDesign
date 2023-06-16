@@ -1,7 +1,10 @@
 package com.example.petshop.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.petshop.entity.Evaluation;
 import com.example.petshop.entity.Goods;
+import com.example.petshop.entity.Pets;
 import com.example.petshop.vo.goodsVo;
 
 import java.util.List;
@@ -20,8 +23,14 @@ public interface GoodsService extends IService<Goods> {
     void deleteByIds(String ids);
     Boolean update(Goods goods);
     Goods getByValue(String value,String name);
+
+    List<Goods> listByValue(String value, String name);
+
     List<goodsVo> getById(String id);
-    Boolean updateUsefulByIds(String id, Boolean flag);
+    Boolean updateUsefulByIds(String id, Integer flag);
+
+    Page<Goods> pageByValue(Integer pageNum, Integer pageSize, String value, String name);
+
     List<goodsVo> page(Integer pageNum, Integer pageSize);
 
     List<goodsVo>pageByGoods(String pageFrom,String type,Integer pageNum,Integer pageSize,String orderByDsc,String orderAsc);
