@@ -111,7 +111,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
 
     @Override
     public List<goodsVo> upPriceSearch(Integer pageNum, Integer pageSize,String name) {
-        List<goodsVo> b=baseMapper.upQuantitySearch(pageNum,pageSize,name);
+        List<goodsVo> b=baseMapper.upPriceSearch(pageNum,pageSize,name);
         return b;
     }
 }
