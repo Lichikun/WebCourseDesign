@@ -58,7 +58,7 @@ public class GoodsController {
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "/updateUsefulByIds")
-    public Result updateUsefulByIds(String id,Boolean flag) {
+    public Result updateUsefulByIds(String id,Integer flag) {
         Result result = new Result();
         goodsService.updateUsefulByIds(id,flag);
         result.success("更新成功");
@@ -72,12 +72,19 @@ public class GoodsController {
         result.setData(goodsService.getById(id));
         return result;
     }
-    @SkipTokenValidation
-    @RequestMapping(method = RequestMethod.POST,value = "/page")
-    public Result page( Integer pageNum,Integer pageSize ){
+    @RequestMapping(method = RequestMethod.POST,value = "/list")
+    public Result listByValue(String value,String name){
         Result result = new Result();
         result.success("获取list成功");
-        result.setData(goodsService.page(pageNum,pageSize));
+        result.setData(goodsService.listByValue(value,name));
+        return result;
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/page")
+    public Result page( Integer pageNum,Integer pageSize,String value,String name ){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(goodsService.pageByValue(pageNum,pageSize,value,name));
         return result;
     }
     @SkipTokenValidation
