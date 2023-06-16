@@ -80,4 +80,12 @@ public class GoodsController {
         result.setData(goodsService.page(pageNum,pageSize));
         return result;
     }
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/search")
+    public Result Search( String name ){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(goodsService.search(name));
+        return result;
+    }
 }

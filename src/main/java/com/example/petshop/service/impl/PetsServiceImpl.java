@@ -8,6 +8,7 @@ import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.mapper.PetsMapper;
 import com.example.petshop.entity.Pets;
 import com.example.petshop.service.PetsService;
+import com.example.petshop.vo.goodsVo;
 import com.example.petshop.vo.petsVo;
 import org.springframework.stereotype.Service;
 
@@ -98,4 +99,9 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
         return this.baseMapper.getById(id);
     }
 
+    @Override
+    public List<petsVo> search(String name) {
+        List<petsVo> b=baseMapper.search(name);
+        return b;
+    }
 }
