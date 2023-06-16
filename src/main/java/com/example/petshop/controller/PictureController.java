@@ -11,6 +11,9 @@ import com.example.petshop.service.PictureService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -142,7 +145,30 @@ public class PictureController {
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/uploadPet")
-    public Result editImg3(MultipartFile file) throws Exception {
+    public Result editImg3(MultipartFile[] file) throws Exception {
+        Result result = new Result();
+        List<String> fileList = new ArrayList<>();
+        for(int i = 0; i< file.length ; i++){
+            if(file[i].isEmpty()){
+                result.fail("图片上传失败");
+            }
+            String originalFilename = file[i].getOriginalFilename();
+            String ext = "." + originalFilename.split("\\.")[1];
+            String uuid = UUID.randomUUID().toString().replace("-","");
+            String filename = uuid + ext;
+            System.out.println(filename);
+            String pre = "C:/image/pet/";
+            String path = pre + filename;
+            file[i].transferTo(new File(path));
+            fileList.add(filename);
+        }
+        result.setData(fileList);
+        result.success("保存成功");
+        return result;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/uploadShop")
+    public Result editImg4(MultipartFile file) throws Exception {
         Result result = new Result();
         if(file.isEmpty()){
             result.fail("图片上传失败");
@@ -152,13 +178,11 @@ public class PictureController {
         String uuid = UUID.randomUUID().toString().replace("-","");
         String filename = uuid + ext;
         System.out.println(filename);
-        String pre = "C:/image/pet/";
+        String pre = "C:/image/shop/";
         String path = pre + filename;
         file.transferTo(new File(path));
         result.setData(filename);
         result.success("保存成功");
         return result;
     }
-
-
 }
