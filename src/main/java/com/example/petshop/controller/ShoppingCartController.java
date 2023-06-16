@@ -39,7 +39,7 @@ public class ShoppingCartController {
             result.success("商品重复添加成功");
         } else {
             shoppingCartService.add(shoppingCart);
-            result.success("");
+            result.success("新建商品成功");
         }
         return result;
     }

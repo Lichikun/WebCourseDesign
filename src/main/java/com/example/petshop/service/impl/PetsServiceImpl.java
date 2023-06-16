@@ -100,8 +100,20 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
     }
 
     @Override
-    public List<petsVo> search(String name) {
-        List<petsVo> b=baseMapper.search(name);
+    public List<petsVo> search(Integer pageNum, Integer pageSize,String type) {
+        List<petsVo> b=baseMapper.search(pageNum,pageSize,type);
+        return b;
+    }
+
+    @Override
+    public List<petsVo> downPriceSearch(Integer pageNum, Integer pageSize,String type) {
+        List<petsVo> b=baseMapper.downPriceSearch(pageNum,pageSize,type);
+        return b;
+    }
+
+    @Override
+    public List<petsVo> upPriceSearch(Integer pageNum, Integer pageSize,String type) {
+        List<petsVo> b=baseMapper.upPriceSearch(pageNum,pageSize,type);
         return b;
     }
 

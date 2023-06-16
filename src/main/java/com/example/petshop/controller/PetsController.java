@@ -2,6 +2,7 @@ package com.example.petshop.controller;
 
 import com.example.petshop.common.config.SkipTokenValidation;
 import com.example.petshop.common.utils.Result;
+import com.example.petshop.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,10 +31,14 @@ public class PetsController {
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public Result save(@RequestBody Pets pets) {
 
+        Pets FindUser = petsService.getByValue("name",pets.getName());
         Result result = new Result();
-
-        petsService.add(pets);
-        result.success("添加成功");
+        //业务 交给业务成 service 去处理
+        if(FindUser != null){
+            result.fail(pets.getName()+"已存在");
+        }else{
+            petsService.add(pets);
+            result.success("添加成功");}
 
         return result;
     }
@@ -89,10 +94,26 @@ public class PetsController {
     }
     @SkipTokenValidation
     @RequestMapping(method = RequestMethod.POST,value = "/search")
-    public Result Search( String name ){
+    public Result search( Integer pageNum,Integer pageSize,String type ){
         Result result = new Result();
         result.success("获取list成功");
-        result.setData(petsService.search(name));
+        result.setData(petsService.search(pageNum,pageSize,type));
+        return result;
+    }
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/downPriceSearch")
+    public Result downPriceSearch( Integer pageNum,Integer pageSize,String type ){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(petsService.downPriceSearch(pageNum,pageSize,type));
+        return result;
+    }
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/upPriceSearch")
+    public Result upPriceSearch( Integer pageNum,Integer pageSize,String type ){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(petsService.upPriceSearch(pageNum,pageSize,type));
         return result;
     }
     @SkipTokenValidation
