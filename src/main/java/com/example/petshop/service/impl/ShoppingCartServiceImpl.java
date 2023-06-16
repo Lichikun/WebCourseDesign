@@ -30,6 +30,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper,Shop
         if (shoppingCart.getGoodsNum() == null)
             shoppingCart.setGoodsNum(1);
         shoppingCart.setOpt(0);
+
         this.save(shoppingCart);
         return true;
     }
