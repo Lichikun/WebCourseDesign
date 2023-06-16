@@ -8,6 +8,8 @@ import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.mapper.ShopMapper;
 import com.example.petshop.entity.Shop;
 import com.example.petshop.service.ShopService;
+import com.example.petshop.vo.goodsVo;
+import com.example.petshop.vo.shopVo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -93,4 +95,9 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
         return this.page(page,queryWrapper);
     }
 
+    @Override
+    public List<shopVo> search(Integer pageNum, Integer pageSize, String name) {
+        List<shopVo> b=baseMapper.search(pageNum,pageSize,name);
+        return b;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.petshop.controller;
 
+import com.example.petshop.common.config.SkipTokenValidation;
 import com.example.petshop.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +78,15 @@ public class ShopController {
         Result result = new Result();
         result.success("获取list成功");
         result.setData(shopService.page(pageNum,pageSize,value,name));
+        return result;
+    }
+
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/search")
+    public Result search( Integer pageNum,Integer pageSize,String name ){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(shopService.search(pageNum,pageSize,name));
         return result;
     }
 }
