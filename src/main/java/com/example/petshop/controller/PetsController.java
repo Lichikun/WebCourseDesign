@@ -116,4 +116,12 @@ public class PetsController {
         result.setData(petsService.upPriceSearch(pageNum,pageSize,type));
         return result;
     }
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/pageByPets")
+    public Result pageByPets (String pageFrom,String type,Integer pageNum,Integer pageSize,String orderByDsc,String orderAsc){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(petsService.pageByPets(pageFrom,type,pageNum,pageSize,orderByDsc,orderAsc));
+        return result;
+    }
 }

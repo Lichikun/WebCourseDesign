@@ -116,4 +116,13 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
         List<petsVo> b=baseMapper.upPriceSearch(pageNum,pageSize,type);
         return b;
     }
+
+    @Override
+    public List<petsVo> pageByPets(String pageFrom, String type, Integer pageNum, Integer pageSize, String orderByDsc, String orderAsc) {
+        if(pageFrom.equals("home")){
+            return this.baseMapper.getHomePagePets((pageNum-1)*pageSize,pageSize,orderByDsc,orderAsc);
+        }else{
+            return this.baseMapper.getCategoryPagePets((pageNum-1)*pageSize,pageSize,type,orderByDsc,orderAsc);
+        }
+    }
 }
