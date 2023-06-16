@@ -24,4 +24,5 @@ public interface GoodsService extends IService<Goods> {
     Boolean updateUsefulByIds(String id, Boolean flag);
     List<goodsVo> page(Integer pageNum, Integer pageSize);
     List<goodsVo> search(String name);
+    List<goodsVo>pageByGoods(String pageFrom,String type,Integer pageNum,Integer pageSize,String orderByDsc,String orderAsc);
 }

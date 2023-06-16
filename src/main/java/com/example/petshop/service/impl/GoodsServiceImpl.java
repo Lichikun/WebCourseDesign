@@ -91,4 +91,15 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
         return b;
     }
 
+    @Override
+    public List<goodsVo> pageByGoods(String pageFrom, String type, Integer pageNum, Integer pageSize, String orderByDsc, String orderAsc) {
+        if(pageFrom.equals("home")){
+            return this.baseMapper.getHomePageGoods((pageNum-1)*pageSize,pageSize,orderByDsc,orderAsc);
+        }else {
+            return this.baseMapper.getCategoryPageGoods((pageNum-1)*pageSize,pageSize,type,orderByDsc,orderAsc);
+        }
+
+
+    }
+
 }

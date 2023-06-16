@@ -88,4 +88,13 @@ public class GoodsController {
         result.setData(goodsService.search(name));
         return result;
     }
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/pageByGoods")
+    public Result pageByGoods(String pageFrom,String type,Integer pageNum,Integer pageSize,String orderByDsc,String orderAsc){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(goodsService.pageByGoods(pageFrom,type,pageNum,pageSize,orderByDsc,orderAsc));
+        return result;
+    }
+
 }

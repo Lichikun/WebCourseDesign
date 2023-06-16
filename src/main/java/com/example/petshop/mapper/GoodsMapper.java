@@ -26,4 +26,8 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     @Select("SELECT * FROM goods JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE name LIKE '%${name}%' AND p.state = 0 ORDER BY goods.purchase_quantity")
     List<goodsVo> search(@Param("name") String name);
 
+    @Select("SELECT *FROM goods JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=goods.id WHERE p.state=0 ORDER BY goods.${orderByDsc} ${orderAsc} LIMIT #{pageNum}, #{pageSize}")
+    List<goodsVo>getHomePageGoods(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("orderByDsc") String orderByDec,@Param("orderAsc") String orderAsc);
+    @Select("SELECT *FROM goods JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=goods.id WHERE p.state=0 AND category=#{category} ORDER BY goods.${orderByDsc} ${orderAsc} LIMIT #{pageNum}, #{pageSize}")
+    List<goodsVo>getCategoryPageGoods(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("category") String type,@Param("orderByDsc") String orderByDec,@Param("orderAsc") String orderAsc);
 }
