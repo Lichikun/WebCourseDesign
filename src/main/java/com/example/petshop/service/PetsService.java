@@ -26,6 +26,7 @@ public interface PetsService extends IService<Pets> {
     Boolean updateUsefulByIds(String id, Integer flag);
     Page<Pets> page(Integer pageNum, Integer pageSize,String value, String name);
     List<petsVo>getResultById(String id);
+    List<petsVo> pageByPets(String pageFrom, String type, Integer pageNum, Integer pageSize, String orderByDsc, String orderAsc);
     List<petsVo> search(Integer pageNum, Integer pageSize,String type);
     List<petsVo> downPriceSearch(Integer pageNum, Integer pageSize,String type);
     List<petsVo> upPriceSearch(Integer pageNum, Integer pageSize,String type);
