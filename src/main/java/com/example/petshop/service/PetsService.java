@@ -27,4 +27,5 @@ public interface PetsService extends IService<Pets> {
     Page<Pets> page(Integer pageNum, Integer pageSize,String value, String name);
     List<petsVo>getResultById(String id);
     List<petsVo> search(String name);
+    List<petsVo>pageByPets(String pageFrom,String type,Integer pageNum,Integer pageSize,String orderByDsc,String orderAsc);
 }
