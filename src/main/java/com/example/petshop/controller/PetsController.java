@@ -2,6 +2,7 @@ package com.example.petshop.controller;
 
 import com.example.petshop.common.config.SkipTokenValidation;
 import com.example.petshop.common.utils.Result;
+import com.example.petshop.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,10 +31,14 @@ public class PetsController {
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public Result save(@RequestBody Pets pets) {
 
+        Pets FindUser = petsService.getByValue("name",pets.getName());
         Result result = new Result();
-
-        petsService.add(pets);
-        result.success("添加成功");
+        //业务 交给业务成 service 去处理
+        if(FindUser != null){
+            result.fail(pets.getName()+"已存在");
+        }else{
+            petsService.add(pets);
+            result.success("添加成功");}
 
         return result;
     }

@@ -27,6 +27,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
 
     @Override
     public Boolean add(Shop shop) {
+        shop.setUseful(1);
         this.save(shop);
         return true;
     }
