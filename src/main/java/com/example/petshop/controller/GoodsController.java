@@ -143,5 +143,12 @@ public class GoodsController {
         result.setData(goodsService.pageByGoods(pageFrom,type,pageNum,pageSize,orderByDsc,orderAsc));
         return result;
     }
-
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/getByShopid")
+    public Result getByShopid( String shop_id ){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(goodsService.getByShopid(shop_id));
+        return result;
+    }
 }

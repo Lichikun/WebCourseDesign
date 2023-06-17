@@ -43,4 +43,6 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     @Select("SELECT * FROM goods JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE name LIKE '%${name}%' AND p.state = 0 ORDER BY goods.price ASC LIMIT #{pageNum}, #{pageSize}")
     List<goodsVo> upPriceSearch(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("name") String name);
 
+    @Select("SELECT *FROM goods JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=goods.id WHERE goods.shop_id=#{shop_id} AND p.state = 0 ")
+    List<goodsVo> getByShopid(@Param("shop_id") String shop_id);
 }

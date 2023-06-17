@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.mapper.ShopMapper;
 import com.example.petshop.entity.Shop;
 import com.example.petshop.service.ShopService;
-import com.example.petshop.vo.goodsVo;
 import com.example.petshop.vo.shopVo;
 import org.springframework.stereotype.Service;
 
@@ -82,7 +80,6 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
     public List<Shop> listByValue (String value,String name){
         QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
             queryWrapper.like(value,name);
-
             return this.list(queryWrapper);
     }
 
@@ -99,5 +96,12 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
     public List<shopVo> search(Integer pageNum, Integer pageSize, String name) {
         List<shopVo> b=baseMapper.search(pageNum,pageSize,name);
         return b;
+    }
+
+    @Override
+    public Shop getById(String id) {
+        QueryWrapper<Shop> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("id",id);
+        return this.getOne(queryWrapper);
     }
 }

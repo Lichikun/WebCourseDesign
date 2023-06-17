@@ -125,4 +125,10 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
             return this.baseMapper.getCategoryPagePets((pageNum-1)*pageSize,pageSize,type,orderByDsc,orderAsc);
         }
     }
+
+    @Override
+    public List<petsVo> getByShopid(String shop_id) {
+        List<petsVo> b=baseMapper.getByShopid(shop_id);
+        return b;
+    }
 }

@@ -26,4 +26,5 @@ public interface ShopService extends IService<Shop> {
     Boolean updateUsefulByIds(String id, Integer flag);
     Page<Shop> page(Integer pageNum, Integer pageSize, String value, String name);
     List<shopVo> search(Integer pageNum, Integer pageSize, String name);
+    Shop getById(String id);
 }
