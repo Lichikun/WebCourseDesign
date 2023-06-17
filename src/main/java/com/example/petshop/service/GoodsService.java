@@ -31,7 +31,7 @@ public interface GoodsService extends IService<Goods> {
 
     Page<Goods> pageByValue(Integer pageNum, Integer pageSize, String value, String name);
 
-    List<goodsVo> page(Integer pageNum, Integer pageSize);
+    List<goodsVo> homePage(Integer pageNum, Integer pageSize);
 
     List<goodsVo>pageByGoods(String pageFrom,String type,Integer pageNum,Integer pageSize,String orderByDsc,String orderAsc);
     List<goodsVo> search(Integer pageNum, Integer pageSize,String name);
