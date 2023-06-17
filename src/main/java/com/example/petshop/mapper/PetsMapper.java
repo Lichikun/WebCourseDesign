@@ -32,4 +32,7 @@ public interface PetsMapper extends BaseMapper<Pets> {
 
     @Select("SELECT * FROM pets JOIN (SELECT url, belong_id, state FROM picture) AS p ON p.belong_id = id WHERE type LIKE '%${type}%' AND p.state = 0 ORDER BY pets.price ASC LIMIT #{pageNum}, #{pageSize}")
     List<petsVo> upPriceSearch(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,@Param("type") String type);
+
+    @Select("SELECT *FROM pets JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=pets.id WHERE pets.shop_id=#{shop_id} AND p.state = 0 ")
+    List<petsVo> getByShopid(@Param("shop_id") String shop_id);
 }

@@ -2,6 +2,11 @@ package com.example.petshop.controller;
 
 import com.example.petshop.common.config.SkipTokenValidation;
 import com.example.petshop.common.utils.Result;
+import com.example.petshop.service.GoodsService;
+import com.example.petshop.service.PetsService;
+import com.example.petshop.vo.goodsVo;
+import com.example.petshop.vo.petsVo;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,6 +16,10 @@ import com.example.petshop.entity.Shop;
 import com.example.petshop.service.ShopService;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -26,6 +35,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ShopController {
     @Autowired
     private ShopService shopService;
+    @Autowired
+    private GoodsService goodsService;
+    @Autowired
+    private PetsService petsService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public Result save(@RequestBody Shop shop) {
@@ -89,4 +102,21 @@ public class ShopController {
         result.setData(shopService.search(pageNum,pageSize,name));
         return result;
     }
+
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/getById")
+    public Result getById( String id ){
+        Result result = new Result();
+        result.success("获取list成功");
+        Map<String, Object> map = new HashMap<>();
+        Shop a=shopService.getById(id);
+        List<goodsVo> goodsvo= goodsService.getByShopid(id);
+        List<petsVo> petsvo= petsService.getByShopid(id);
+        map.put("shop",a);
+        map.put("goods",goodsvo);
+        map.put("pets",petsvo);
+        result.setData(map);
+        return result;
+    }
+
 }
