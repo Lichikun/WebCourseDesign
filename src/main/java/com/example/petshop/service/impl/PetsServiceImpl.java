@@ -29,6 +29,8 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
 
     @Override
     public Boolean add(Pets pets) {
+        pets.setStock(1);
+        pets.setUseful(1);
         this.save(pets);
         return true;
     }
