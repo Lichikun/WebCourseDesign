@@ -2,6 +2,7 @@ package com.example.petshop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.petshop.mapper.GoodsMapper;
 import com.example.petshop.entity.Goods;
@@ -26,6 +27,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
 
     @Override
     public Boolean add(Goods goods) {
+        goods.setUseful(1);
+        goods.setPurchaseQuantity(0);
+        goods.setStock(0);
         this.save(goods);
         return true;
     }
@@ -47,7 +51,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     }
 
     @Override
-    public Boolean updateUsefulByIds(String ids, Boolean flag) {
+    public Boolean updateUsefulByIds(String ids, Integer flag) {
         //ids  若干个id 用逗号隔开
         String[] aryIds = ids.split(",");
         for(String id: aryIds){
@@ -58,7 +62,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
 
             //修改数据
             Goods goods = this.getOne(UpdateWrapper);
-
+            goods.setUseful(flag);
             //执行
             this.update(goods);
         }
@@ -72,11 +76,27 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
 
         return this.getOne(QueryWrapper);
     }
+    @Override
+    public List<Goods> listByValue(String value, String name){
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like(value,name);
+
+        return this.list(queryWrapper);
+    }
 
     @Override
     public List<goodsVo> getById (String id){
 
             return this.baseMapper.getById(id);
+    }
+
+    @Override
+    public Page<Goods> pageByValue(Integer pageNum, Integer pageSize, String value, String name) {
+        Page<Goods> page = new Page<>(pageNum,pageSize);
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like(value,name);
+
+        return this.page(page,queryWrapper);
     }
 
     @Override
