@@ -100,7 +100,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     }
 
     @Override
-    public List<goodsVo> page(Integer pageNum, Integer pageSize) {
+    public List<goodsVo> homePage(Integer pageNum, Integer pageSize) {
 
         return this.baseMapper.pageByPurchase((pageNum-1)*pageSize,pageSize);
     }

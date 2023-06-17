@@ -128,6 +128,14 @@ public class GoodsController {
         return result;
     }
     @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/homePage")
+    public Result homePage( Integer pageNum,Integer pageSize){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(goodsService.homePage(pageNum,pageSize));
+        return result;
+    }
+    @SkipTokenValidation
     @RequestMapping(method = RequestMethod.POST,value = "/pageByGoods")
     public Result pageByGoods(String pageFrom,String type,Integer pageNum,Integer pageSize,String orderByDsc,String orderAsc){
         Result result = new Result();
