@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.petshop.common.utils.mapDistance;
 import com.example.petshop.mapper.ShopMapper;
 import com.example.petshop.entity.Shop;
 import com.example.petshop.service.ShopService;
@@ -77,10 +78,19 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
     }
 
     @Override
-    public List<Shop> listByValue (String value,String name){
-        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
-            queryWrapper.like(value,name);
-            return this.list(queryWrapper);
+    public List<Shop> listByValue (double distance,String longitude,String latitude){
+           List<Shop>list=this.list();
+           List<Shop>list2=new ArrayList<>();
+           double longitude1=Double.parseDouble(longitude);
+           double latitude1=Double.parseDouble(latitude);
+            for(int i=0;i<list.size();i++){
+                double longitude2=Double.parseDouble(list.get(i).getLongitude());
+                double laitude2=Double.parseDouble(list.get(i).getLatitude());
+                if(mapDistance.GetDistance(longitude1,latitude1,longitude2,laitude2)<=distance*1000) {
+                    list2.add(list.get(i));
+                }
+            }
+            return list2;
     }
 
     @Override
