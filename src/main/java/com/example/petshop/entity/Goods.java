@@ -33,7 +33,7 @@ public class Goods extends BaseEntity {
     /**
      * 商品详情
      */
-    private String detasils;
+    private String details;
 
     /**
      * 商品所属商店的id
