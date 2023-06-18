@@ -29,7 +29,7 @@ public class Orders extends BaseEntity {
     /**
      * 订单时间
      */
-    private LocalDateTime creatTime;
+    private String creatTime;
 
     /**
      * 客户标识符
@@ -66,5 +66,7 @@ public class Orders extends BaseEntity {
      */
     private String name;
 
+    private String shopId;
 
+    private Integer mapNum;
 }

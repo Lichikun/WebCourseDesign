@@ -26,9 +26,11 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
 
 
     @Override
-    public Boolean add(Orders orders) {
+    public Orders add(Orders orders) {
+        orders.setCreatTime(DateTool.getCurrTime());
+        orders.setUseful(1);
         this.save(orders);
-        return true;
+        return orders;
     }
 
     @Override
@@ -48,7 +50,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
     }
 
     @Override
-    public Boolean updateUsefulByIds(String ids, Boolean flag) {
+    public Boolean updateUsefulByIds(String ids, Integer flag) {
         //ids  若干个id 用逗号隔开
         String[] aryIds = ids.split(",");
         for(String id: aryIds){
@@ -59,7 +61,26 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
 
             //修改数据
             Orders orders = this.getOne(UpdateWrapper);
+            orders.setUseful(flag);
+            //执行
+            this.update(orders);
+        }
+        return true;
+    }
 
+    @Override
+    public Boolean updateState(String ids, Integer flag) {
+        //ids  若干个id 用逗号隔开
+        String[] aryIds = ids.split(",");
+        for(String id: aryIds){
+
+            //查找符合的数据
+            UpdateWrapper<Orders> UpdateWrapper = new UpdateWrapper();
+            UpdateWrapper.eq("id",id);
+
+            //修改数据
+            Orders orders = this.getOne(UpdateWrapper);
+            orders.setState(flag);
             //执行
             this.update(orders);
         }
@@ -83,10 +104,10 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
     }
 
     @Override
-    public Page<Orders> page(Integer pageNum,Integer pageSize,String name) {
+    public Page<Orders> page(Integer pageNum,Integer pageSize,String value,String name) {
         Page<Orders> page = new Page<>(pageNum,pageSize);
         QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("name",name);
+        queryWrapper.like(value,name);
 
         return this.page(page,queryWrapper);
     }
