@@ -17,5 +17,5 @@ public class shoppingCartVo extends ShoppingCart{
 
     private String pictureUrl;
 
-
+    private String shopId;
 }

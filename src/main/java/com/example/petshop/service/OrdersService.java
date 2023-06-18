@@ -16,11 +16,12 @@ import java.util.List;
 */
 public interface OrdersService extends IService<Orders> {
 
-    Boolean add(Orders orders);
+    Orders add(Orders orders);
     void deleteByIds(String ids);
     Boolean update(Orders orders);
     Orders getByValue(String value,String name);
     List<Orders> listByValue(String value,String name);
-    Boolean updateUsefulByIds(String id, Boolean flag);
-    Page<Orders> page(Integer pageNum, Integer pageSize, String name);
+    Boolean updateUsefulByIds(String id, Integer flag);
+    Boolean updateState(String id, Integer flag);
+    Page<Orders> page(Integer pageNum, Integer pageSize, String value,String name);
 }

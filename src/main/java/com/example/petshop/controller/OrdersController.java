@@ -31,7 +31,7 @@ public class OrdersController {
 
         Result result = new Result();
 
-        ordersService.add(orders);
+        result.setData(ordersService.add(orders));
         result.success("添加成功");
 
         return result;
@@ -57,9 +57,17 @@ public class OrdersController {
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "/updateUsefulByIds")
-    public Result updateUsefulByIds(String id,Boolean flag) {
+    public Result updateUsefulByIds(String id,Integer flag) {
         Result result = new Result();
         ordersService.updateUsefulByIds(id,flag);
+        result.success("更新成功");
+        return result;
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/updateState")
+    public Result updateState(String id,Integer flag) {
+        Result result = new Result();
+        ordersService.updateState(id,flag);
         result.success("更新成功");
         return result;
     }
@@ -73,10 +81,10 @@ public class OrdersController {
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "/page")
-    public Result page( Integer pageNum,Integer pageSize,String name ){
+    public Result page( Integer pageNum,Integer pageSize,String value, String name ){
         Result result = new Result();
         result.success("获取list成功");
-        result.setData(ordersService.page(pageNum,pageSize,name));
+        result.setData(ordersService.page(pageNum,pageSize,value,name));
         return result;
     }
 }
