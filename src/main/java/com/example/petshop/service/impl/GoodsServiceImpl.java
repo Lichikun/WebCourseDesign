@@ -29,7 +29,6 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     public Boolean add(Goods goods) {
         goods.setUseful(1);
         goods.setPurchaseQuantity(0);
-        goods.setStock(0);
         this.save(goods);
         return true;
     }
