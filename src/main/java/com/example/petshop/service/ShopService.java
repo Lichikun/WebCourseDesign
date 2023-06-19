@@ -22,7 +22,10 @@ public interface ShopService extends IService<Shop> {
     void deleteByIds(String ids);
     Boolean update(Shop shop);
     Shop getByValue(String value,String name);
-    List<Shop> listByValue(double  distance,String longitude,String latitude);
+
+    List<Shop> shopListByValue(String value, String name);
+
+    List<Shop> listByValue(double  distance, String longitude, String latitude);
     Boolean updateUsefulByIds(String id, Integer flag);
     Page<Shop> page(Integer pageNum, Integer pageSize, String value, String name);
     List<shopVo> search(Integer pageNum, Integer pageSize, String name);

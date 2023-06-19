@@ -41,12 +41,10 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
 
     @Override
     public void deleteByIds(String ids) {
-        List<String> listIds = new ArrayList<>();
         String[] aryIds = ids.split(",");
         for(String id: aryIds){
-            listIds.add(id);
+            baseMapper.petsMultiDelete(id);
         }
-        this.removeByIds(listIds);
     }
 
     @Override
@@ -107,7 +105,7 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
 
     @Override
     public List<petsVo> downPriceSearch(Integer pageNum, Integer pageSize,String type) {
-        List<petsVo> b=baseMapper.downPriceSearch(pageNum,pageSize,type);
+        List<petsVo> b= baseMapper.downPriceSearch(pageNum,pageSize,type);
         return b;
     }
 

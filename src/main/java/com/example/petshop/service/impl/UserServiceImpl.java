@@ -8,6 +8,7 @@ import com.example.petshop.common.utils.MD5Utils;
 import com.example.petshop.mapper.UserMapper;
 import com.example.petshop.entity.User;
 import com.example.petshop.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import java.util.UUID;
 */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements UserService {
-
 
     @Override
     public Boolean add(User user) throws Exception {
@@ -72,12 +72,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Override
     public void deleteByIds(String ids) {
-        List<String> listIds = new ArrayList<>();
         String[] aryIds = ids.split(",");
         for(String id: aryIds){
-            listIds.add(id);
+            baseMapper.userMultiDelete(id);
         }
-        this.removeByIds(listIds);
     }
 
     @Override
