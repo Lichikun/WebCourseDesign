@@ -63,6 +63,7 @@ public class UserController {
     public Result deleteByIds(String ids){
         Result result = new Result();
         userService.deleteByIds(ids);
+
         result.success("删除成功");
 
         return result;

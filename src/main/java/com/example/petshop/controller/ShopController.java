@@ -86,6 +86,14 @@ public class ShopController {
         return result;
     }
 
+    @RequestMapping(method = RequestMethod.POST,value = "/listShop")
+    public Result shopListByValue(String value,String name){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(shopService.shopListByValue(value,name));
+        return result;
+    }
+
     @RequestMapping(method = RequestMethod.POST,value = "/page")
     public Result page( Integer pageNum,Integer pageSize,String value, String name ){
         Result result = new Result();

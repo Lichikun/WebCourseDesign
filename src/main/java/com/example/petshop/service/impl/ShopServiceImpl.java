@@ -78,6 +78,13 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
     }
 
     @Override
+    public List<Shop> shopListByValue (String value,String name){
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like(value,name);
+
+        return this.list(queryWrapper);
+    }
+    @Override
     public List<Shop> listByValue (double distance,String longitude,String latitude){
            List<Shop>list=this.list();
            List<Shop>list2=new ArrayList<>();
