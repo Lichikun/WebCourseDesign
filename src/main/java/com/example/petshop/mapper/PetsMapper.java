@@ -35,4 +35,7 @@ public interface PetsMapper extends BaseMapper<Pets> {
 
     @Select("SELECT *FROM pets JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=pets.id WHERE pets.shop_id=#{shop_id} AND p.state = 0 ")
     List<petsVo> getByShopid(@Param("shop_id") String shop_id);
+
+    @Select("SELECT *FROM pets JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=pets.id WHERE pets.id=#{id} AND p.state = 0 ")
+    List<petsVo> getByIds(@Param("id") String id);
 }

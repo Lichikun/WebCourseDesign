@@ -31,4 +31,6 @@ public interface PetsService extends IService<Pets> {
     List<petsVo> downPriceSearch(Integer pageNum, Integer pageSize,String type);
     List<petsVo> upPriceSearch(Integer pageNum, Integer pageSize,String type);
     List<petsVo> getByShopid(String shop_id);
+
+    List<petsVo> getByIds(String id);
 }
