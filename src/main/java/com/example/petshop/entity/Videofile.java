@@ -43,6 +43,6 @@ public class Videofile extends BaseEntity {
     /**
      *  0---宠物   1-商品
      */
-    private Integer state;
+
 
 }
