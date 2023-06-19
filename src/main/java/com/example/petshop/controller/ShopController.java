@@ -79,10 +79,10 @@ public class ShopController {
     }
 
     @RequestMapping(method = RequestMethod.POST,value = "/list")
-    public Result listByValue(String value,String name){
+    public Result listByValue(double distance,String longitude,String latitude){
         Result result = new Result();
         result.success("获取list成功");
-        result.setData(shopService.listByValue(value,name));
+        result.setData(shopService.listByValue(distance,longitude,latitude));
         return result;
     }
 
