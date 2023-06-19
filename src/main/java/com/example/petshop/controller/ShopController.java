@@ -94,6 +94,7 @@ public class ShopController {
         return result;
     }
 
+    @SkipTokenValidation
     @RequestMapping(method = RequestMethod.POST,value = "/page")
     public Result page( Integer pageNum,Integer pageSize,String value, String name ){
         Result result = new Result();

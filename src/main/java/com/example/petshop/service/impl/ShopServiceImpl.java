@@ -111,7 +111,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
 
     @Override
     public List<shopVo> search(Integer pageNum, Integer pageSize, String name) {
-        List<shopVo> b=baseMapper.search(pageNum,pageSize,name);
+        List<shopVo> b=baseMapper.search((pageNum-1)*pageSize,pageSize,name);
         return b;
     }
 

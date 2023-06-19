@@ -108,7 +108,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
 
     @Override
     public List<goodsVo> search(Integer pageNum, Integer pageSize,String name) {
-        List<goodsVo> b=baseMapper.search(pageNum,pageSize,name);
+        List<goodsVo> b=baseMapper.search((pageNum-1)*pageSize,pageSize,name);
         return b;
     }
 
@@ -125,25 +125,25 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
   
     @Override
     public List<goodsVo> downQuantitySearch(Integer pageNum, Integer pageSize,String name) {
-        List<goodsVo> b=baseMapper.downQuantitySearch(pageNum,pageSize,name);
+        List<goodsVo> b=baseMapper.downQuantitySearch((pageNum-1)*pageSize,pageSize,name);
         return b;
     }
 
     @Override
     public List<goodsVo> upQuantitySearch(Integer pageNum, Integer pageSize,String name) {
-        List<goodsVo> b=baseMapper.upQuantitySearch(pageNum,pageSize,name);
+        List<goodsVo> b=baseMapper.upQuantitySearch((pageNum-1)*pageSize,pageSize,name);
         return b;
     }
 
     @Override
     public List<goodsVo> downPriceSearch(Integer pageNum, Integer pageSize,String name) {
-        List<goodsVo> b=baseMapper.downPriceSearch(pageNum,pageSize,name);
+        List<goodsVo> b=baseMapper.downPriceSearch((pageNum-1)*pageSize,pageSize,name);
         return b;
     }
 
     @Override
     public List<goodsVo> upPriceSearch(Integer pageNum, Integer pageSize,String name) {
-        List<goodsVo> b=baseMapper.upPriceSearch(pageNum,pageSize,name);
+        List<goodsVo> b=baseMapper.upPriceSearch((pageNum-1)*pageSize,pageSize,name);
         return b;
     }
 
@@ -152,6 +152,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
         List<goodsVo> b=baseMapper.getByShopid(shop_id);
         return b;
     }
+
 
     @Override
     public List<goodsVo> getByIds(String id) {
