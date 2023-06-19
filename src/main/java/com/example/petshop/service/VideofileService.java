@@ -24,4 +24,7 @@ public interface VideofileService extends IService<Videofile> {
     Boolean updateUsefulByIds(String id, Boolean flag);
     Page<Videofile> page(Integer pageNum, Integer pageSize, String name);
     Videofile getVideoByBelongId(String belongId);
+    List<Videofile> list();
+    Videofile getById(String id);
+
 }

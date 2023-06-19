@@ -4,6 +4,7 @@ import com.example.petshop.entity.Pets;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.petshop.vo.goodsVo;
 import com.example.petshop.vo.petsVo;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -35,4 +36,14 @@ public interface PetsMapper extends BaseMapper<Pets> {
 
     @Select("SELECT *FROM pets JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=pets.id WHERE pets.shop_id=#{shop_id} AND p.state = 0 ")
     List<petsVo> getByShopid(@Param("shop_id") String shop_id);
+
+    @Delete("DELETE pets, picture\n" +
+            "FROM pets\n" +
+            "LEFT JOIN picture ON pets.id = picture.belong_id\n" +
+            "WHERE pets.id = #{id};")
+    Boolean petsMultiDelete(@Param("id") String id);
+
+    @Select("SELECT *FROM pets JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=pets.id WHERE pets.id=#{id} AND p.state = 0 ")
+    List<petsVo> getByIds(@Param("id") String id);
+
 }
