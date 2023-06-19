@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.petshop.common.utils.DateTool;
+import com.example.petshop.common.utils.Result;
 import com.example.petshop.mapper.VideofileMapper;
 import com.example.petshop.entity.Videofile;
 import com.example.petshop.service.VideofileService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +92,13 @@ public class VideofileServiceImpl extends ServiceImpl<VideofileMapper,Videofile>
         queryWrapper.like("name",name);
 
         return this.page(page,queryWrapper);
+    }
+
+    @Override
+    public Videofile getVideoByBelongId(String belongId) {
+        QueryWrapper<Videofile>queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("belong_id",belongId);
+        return getOne(queryWrapper);
     }
 
 }

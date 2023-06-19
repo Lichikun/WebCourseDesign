@@ -32,12 +32,12 @@ public class Videofile extends BaseEntity {
     /**
      * 关联物品
      */
-    private String petsId;
+    private String belongId;
 
     /**
      * 是否禁用 0---启动   1-禁用
      */
     private Integer useful;
-
+    private Integer state;
 
 }

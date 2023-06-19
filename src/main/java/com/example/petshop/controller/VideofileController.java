@@ -79,4 +79,11 @@ public class VideofileController {
         result.setData(videofileService.page(pageNum,pageSize,name));
         return result;
     }
+    @RequestMapping(method = RequestMethod.POST,value = "/getVideoByBelongId")
+    public Result getVideoByBelongId(String belongId) {
+        Result result = new Result();
+        result.setData(videofileService.getVideoByBelongId(belongId));
+        result.success("获取成功");
+        return result;
+    }
 }
