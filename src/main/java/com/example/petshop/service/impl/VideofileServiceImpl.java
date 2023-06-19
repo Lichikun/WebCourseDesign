@@ -97,10 +97,12 @@ public class VideofileServiceImpl extends ServiceImpl<VideofileMapper,Videofile>
     @Override
 
     public Videofile getVideoByBelongId(String belongId) {
-        QueryWrapper<Videofile>queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("belong_id",belongId);
+        QueryWrapper<Videofile> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("belong_id", belongId);
         return getOne(queryWrapper);
+    }
 
+    @Override
     public List<Videofile> list() {
         List<Videofile> b=baseMapper.list();
         return b;
