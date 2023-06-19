@@ -94,6 +94,14 @@ public class VideofileController {
         return result;
     }
 
+    @RequestMapping(method = RequestMethod.POST,value = "/getVideoByBelongId")
+    public Result getVideoByBelongId(String belongId) {
+        Result result = new Result();
+        result.setData(videofileService.getVideoByBelongId(belongId));
+        result.success("获取成功");
+        return result;
+    }
+
     @SkipTokenValidation
     @RequestMapping(method = RequestMethod.POST,value = "/List")
     public Result list(){
@@ -132,5 +140,4 @@ public class VideofileController {
         result.setData(map);
         return result;
     }
-
 }

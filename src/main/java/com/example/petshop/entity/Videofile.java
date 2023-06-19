@@ -38,7 +38,7 @@ public class Videofile extends BaseEntity {
      * 是否禁用 0---启动   1-禁用
      */
     private Integer useful;
-
+    private Integer state;
 
     /**
      *  0---宠物   1-商品
