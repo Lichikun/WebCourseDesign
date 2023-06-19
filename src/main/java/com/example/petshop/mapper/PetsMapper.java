@@ -42,4 +42,8 @@ public interface PetsMapper extends BaseMapper<Pets> {
             "LEFT JOIN picture ON pets.id = picture.belong_id\n" +
             "WHERE pets.id = #{id};")
     Boolean petsMultiDelete(@Param("id") String id);
+
+    @Select("SELECT *FROM pets JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=pets.id WHERE pets.id=#{id} AND p.state = 0 ")
+    List<petsVo> getByIds(@Param("id") String id);
+
 }

@@ -45,4 +45,7 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     @Select("SELECT *FROM goods JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=goods.id WHERE goods.shop_id=#{shop_id} AND p.state = 0 ")
     List<goodsVo> getByShopid(@Param("shop_id") String shop_id);
+
+    @Select("SELECT *FROM goods JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=goods.id WHERE goods.id=#{id} AND p.state = 0 ")
+    List<goodsVo> getByIds(@Param("id") String id);
 }

@@ -40,4 +40,6 @@ public interface GoodsService extends IService<Goods> {
     List<goodsVo> downPriceSearch(Integer pageNum, Integer pageSize,String name);
     List<goodsVo> upPriceSearch(Integer pageNum, Integer pageSize,String name);
     List<goodsVo> getByShopid(String shop_id);
+
+    List<goodsVo> getByIds(String id);
 }

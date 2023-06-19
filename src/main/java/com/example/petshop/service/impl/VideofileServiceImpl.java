@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.mapper.VideofileMapper;
 import com.example.petshop.entity.Videofile;
 import com.example.petshop.service.VideofileService;
@@ -89,6 +88,19 @@ public class VideofileServiceImpl extends ServiceImpl<VideofileMapper,Videofile>
         queryWrapper.like("name",name);
 
         return this.page(page,queryWrapper);
+    }
+
+    @Override
+    public List<Videofile> list() {
+        List<Videofile> b=baseMapper.list();
+        return b;
+    }
+
+    @Override
+    public Videofile getById(String id) {
+        QueryWrapper<Videofile> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("id",id);
+        return this.getOne(queryWrapper);
     }
 
 }

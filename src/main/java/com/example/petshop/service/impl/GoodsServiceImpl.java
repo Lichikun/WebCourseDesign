@@ -152,4 +152,10 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
         List<goodsVo> b=baseMapper.getByShopid(shop_id);
         return b;
     }
+
+    @Override
+    public List<goodsVo> getByIds(String id) {
+        List<goodsVo> b=baseMapper.getByIds(id);
+        return b;
+    }
 }

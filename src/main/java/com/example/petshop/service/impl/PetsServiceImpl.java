@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.mapper.PetsMapper;
 import com.example.petshop.entity.Pets;
 import com.example.petshop.service.PetsService;
-import com.example.petshop.vo.goodsVo;
 import com.example.petshop.vo.petsVo;
 import org.springframework.stereotype.Service;
 
@@ -129,6 +127,12 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
     @Override
     public List<petsVo> getByShopid(String shop_id) {
         List<petsVo> b=baseMapper.getByShopid(shop_id);
+        return b;
+    }
+
+    @Override
+    public List<petsVo> getByIds(String id) {
+        List<petsVo> b=baseMapper.getByIds(id);
         return b;
     }
 }
