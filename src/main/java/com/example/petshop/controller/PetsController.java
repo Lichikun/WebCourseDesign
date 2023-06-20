@@ -85,6 +85,7 @@ public class PetsController {
         result.setData(petsService.page(pageNum,pageSize,value,name));
         return result;
     }
+    @SkipTokenValidation
     @RequestMapping(method = RequestMethod.POST,value = "/getResultById")
     public Result getResultById(String id){
         Result result = new Result();
