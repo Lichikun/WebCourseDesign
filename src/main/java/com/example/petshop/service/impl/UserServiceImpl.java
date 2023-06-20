@@ -38,6 +38,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
         user.setSalt(salt);
         user.setPassword(password);
+        user.setAvatar("avatar/none.jpg");
         this.save(user);
         return true;
     }
