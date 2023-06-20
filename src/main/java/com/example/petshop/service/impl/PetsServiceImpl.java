@@ -10,7 +10,6 @@ import com.example.petshop.service.PetsService;
 import com.example.petshop.vo.petsVo;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -134,5 +133,17 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
     public List<petsVo> getByIds(String id) {
         List<petsVo> b=baseMapper.getByIds(id);
         return b;
+    }
+
+    @Override
+    public List<petsVo> getPetFile(Integer pageNum,Integer pageSize) {
+        List<petsVo> list = baseMapper.getPetFile(pageNum,pageSize);
+        return list;
+    }
+
+    @Override
+    public List<petsVo> getVideoFile(Integer pageNum,Integer pageSize) {
+        List<petsVo> list = baseMapper.getVideoFile(pageNum,pageSize);
+        return list;
     }
 }

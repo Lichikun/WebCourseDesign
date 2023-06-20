@@ -189,4 +189,23 @@ public class PictureController {
         result.success("保存成功");
         return result;
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/uploadVideo")
+    public Result editImg5(MultipartFile file) throws Exception {
+        Result result = new Result();
+        if(file.isEmpty()){
+            result.fail("视频上传失败");
+        }
+        String originalFilename = file.getOriginalFilename();
+        String ext = "." + originalFilename.split("\\.")[1];
+        String uuid = UUID.randomUUID().toString().replace("-","");
+        String filename = uuid + ext;
+        System.out.println(filename);
+        String pre = "C:/image/video/";
+        String path = pre + filename;
+        file.transferTo(new File(path));
+        result.setData(filename);
+        result.success("保存成功");
+        return result;
+    }
 }

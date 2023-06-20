@@ -6,6 +6,7 @@ import com.example.petshop.entity.Evaluation;
 import com.example.petshop.entity.Goods;
 import com.example.petshop.entity.Pets;
 import com.example.petshop.vo.goodsVo;
+import com.example.petshop.vo.petsVo;
 
 import java.util.List;
 
@@ -40,6 +41,8 @@ public interface GoodsService extends IService<Goods> {
     List<goodsVo> downPriceSearch(Integer pageNum, Integer pageSize,String name);
     List<goodsVo> upPriceSearch(Integer pageNum, Integer pageSize,String name);
     List<goodsVo> getByShopid(String shop_id);
-
     List<goodsVo> getByIds(String id);
+
+    List<goodsVo> getGoodsFile(Integer pageNum, Integer pageSize);
+    List<goodsVo> getGoodsVideoFile(Integer pageNum, Integer pageSize);
 }

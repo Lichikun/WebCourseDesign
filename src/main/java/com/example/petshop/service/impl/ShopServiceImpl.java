@@ -78,7 +78,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
     }
 
     @Override
-    public List<Shop> shopListByValue (String value,String name){
+    public List<Shop> shopListByValue(String value, String name){
         QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
         queryWrapper.like(value,name);
 
@@ -121,4 +121,5 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
         queryWrapper.eq("id",id);
         return this.getOne(queryWrapper);
     }
+
 }
