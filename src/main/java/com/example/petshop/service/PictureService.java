@@ -1,5 +1,6 @@
 package com.example.petshop.service;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.petshop.entity.Picture;
 
@@ -22,4 +23,5 @@ public interface PictureService extends IService<Picture> {
     List<Picture> listByValue(String value,String name);
     Boolean updateUsefulByIds(String id, Boolean flag);
     List<Picture> page(Integer pageNum, Integer pageSize,String belong_id);
+
 }

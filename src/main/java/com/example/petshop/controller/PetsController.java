@@ -124,4 +124,22 @@ public class PetsController {
         result.setData(petsService.pageByPets(pageFrom,type,pageNum,pageSize,orderByDsc,orderAsc));
         return result;
     }
+
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/getPetFile")
+    public Result getPetFile (Integer pageNum,Integer pageSize){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(petsService.getPetFile(pageNum,pageSize));
+        return result;
+    }
+
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/getVideoFile")
+    public Result getVideoFile (Integer pageNum,Integer pageSize){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(petsService.getVideoFile(pageNum,pageSize));
+        return result;
+    }
 }

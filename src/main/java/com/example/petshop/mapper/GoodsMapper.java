@@ -48,4 +48,18 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     @Select("SELECT *FROM goods JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=goods.id WHERE goods.id=#{id} AND p.state = 0 ")
     List<goodsVo> getByIds(@Param("id") String id);
+
+    @Select("SELECT goods.id as belong_id,picture.id as id,goods.name,goods.category,picture.url,state\n" +
+            "FROM goods\n" +
+            "INNER JOIN picture ON goods.id = picture.belong_id\n" +
+            "ORDER BY goods.id ASC\n" +
+            "LIMIT #{pageSize} OFFSET #{pageNum};")
+    List<goodsVo> getGoodFile(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+
+    @Select("SELECT goods.id as belong_id, videofile.id as id, goods.name, goods.category, videofile.url, state\n" +
+            "FROM goods\n" +
+            "INNER JOIN videofile ON goods.id = videofile.belong_id\n" +
+            "ORDER BY goods.id ASC\n" +
+            "LIMIT #{pageSize} OFFSET #{pageNum};")
+    List<goodsVo> getGoodVedioFile(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 }

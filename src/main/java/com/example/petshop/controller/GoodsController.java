@@ -151,4 +151,22 @@ public class GoodsController {
         result.setData(goodsService.getByShopid(shop_id));
         return result;
     }
+
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/getGoodFile")
+    public Result getGoodFile (Integer pageNum,Integer pageSize){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(goodsService.getGoodsFile(pageNum,pageSize));
+        return result;
+    }
+
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/getGoodVideoFile")
+    public Result getGoodVideoFile (Integer pageNum,Integer pageSize){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(goodsService.getGoodsVideoFile(pageNum,pageSize));
+        return result;
+    }
 }

@@ -33,4 +33,8 @@ public interface PetsService extends IService<Pets> {
     List<petsVo> getByShopid(String shop_id);
 
     List<petsVo> getByIds(String id);
+
+    List<petsVo> getPetFile(Integer pageNum,Integer pageSize);
+
+    List<petsVo> getVideoFile(Integer pageNum,Integer pageSize);
 }

@@ -46,4 +46,17 @@ public interface PetsMapper extends BaseMapper<Pets> {
     @Select("SELECT *FROM pets JOIN (SELECT url,belong_id,state FROM picture) AS p on p.belong_id=pets.id WHERE pets.id=#{id} AND p.state = 0 ")
     List<petsVo> getByIds(@Param("id") String id);
 
+    @Select("SELECT pets.id as belong_id, picture.id as id, pets.name, pets.type, picture.url, state\n" +
+            "FROM pets\n" +
+            "INNER JOIN picture ON pets.id = picture.belong_id\n" +
+            "ORDER BY pets.id ASC\n" +
+            "LIMIT #{pageSize} OFFSET #{pageNum};")
+    List<petsVo> getPetFile(@Param("pageNum") Integer pageNum,@Param("pageSize") Integer pageSize);
+
+    @Select("SELECT pets.id as belong_id, videofile.id as id, pets.name, pets.type, videofile.url, state\n" +
+            "FROM pets\n" +
+            "INNER JOIN videofile ON pets.id = videofile.belong_id\n" +
+            "ORDER BY pets.id ASC\n" +
+            "LIMIT #{pageSize} OFFSET #{pageNum};")
+    List<petsVo> getVideoFile(@Param("pageNum") Integer pageNum,@Param("pageSize") Integer pageSize);
 }
