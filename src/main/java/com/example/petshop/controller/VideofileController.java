@@ -93,7 +93,7 @@ public class VideofileController {
         result.setData(videofileService.page(pageNum,pageSize,name));
         return result;
     }
-
+    @SkipTokenValidation
     @RequestMapping(method = RequestMethod.POST,value = "/getVideoByBelongId")
     public Result getVideoByBelongId(String belongId) {
         Result result = new Result();
