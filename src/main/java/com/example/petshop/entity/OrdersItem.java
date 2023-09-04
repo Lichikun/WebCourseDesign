@@ -45,5 +45,9 @@ public class OrdersItem extends BaseEntity {
      */
     private Integer goodsQuantity;
 
+    /**
+     * 商品类型？商品or宠物
+     */
+    private Integer type;
 
 }

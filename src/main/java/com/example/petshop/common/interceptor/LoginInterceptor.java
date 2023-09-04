@@ -28,7 +28,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         JwtTokenProvider jwtTokenProvider = new JwtTokenProvider();
         String token = request.getHeader("Authorization");
-
         //如果是方法探测，直接通过
         if (HttpMethod.OPTIONS.equals(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);

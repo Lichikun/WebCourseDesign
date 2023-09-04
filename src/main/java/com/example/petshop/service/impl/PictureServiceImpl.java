@@ -88,5 +88,4 @@ public class PictureServiceImpl extends ServiceImpl<PictureMapper,Picture> imple
         queryWrapper.eq("belong_id",belong_id);
         return this.page(page,queryWrapper).getRecords();
     }
-
 }

@@ -159,4 +159,16 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
         List<goodsVo> b=baseMapper.getByIds(id);
         return b;
     }
+
+    @Override
+    public List<goodsVo> getGoodsFile(Integer pageNum, Integer pageSize) {
+        List<goodsVo> list = baseMapper.getGoodFile(pageNum,pageSize);
+        return list;
+    }
+
+    @Override
+    public List<goodsVo> getGoodsVideoFile(Integer pageNum, Integer pageSize) {
+        List<goodsVo> list = baseMapper.getGoodVedioFile(pageNum,pageSize);
+        return list;
+    }
 }
