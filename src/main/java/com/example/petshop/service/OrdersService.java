@@ -26,7 +26,7 @@ public interface OrdersService extends IService<Orders> {
     Boolean updateState(String id, Integer flag);
     Page<Orders> page(Integer pageNum, Integer pageSize, String value,String name);
 
-    ordersVo getByOrdersId(String id);
+    List<ordersVo> getByOrdersId(String id);
 
-    List<ordersVo> getOrders();
+    List<ordersVo> getOrders(Integer pageNum, Integer pageSize);
 }

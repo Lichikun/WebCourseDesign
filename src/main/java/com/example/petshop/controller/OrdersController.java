@@ -88,5 +88,18 @@ public class OrdersController {
         return result;
     }
 
-
+    @RequestMapping(method = RequestMethod.POST,value = "/getOneOrders")
+    public Result getOneOrders(String id ){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(ordersService.getByOrdersId(id));
+        return result;
+    }
+    @RequestMapping(method = RequestMethod.POST,value = "/getAllOrders")
+    public Result getAllOrders(Integer pageNum,Integer pageSize){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(ordersService.getOrders(pageNum,pageSize));
+        return result;
+    }
 }
