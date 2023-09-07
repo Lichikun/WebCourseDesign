@@ -1,6 +1,8 @@
 package com.example.petshop.controller;
 
 import com.example.petshop.common.utils.Result;
+import com.example.petshop.entity.Goods;
+import com.example.petshop.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,15 +27,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrdersItemController {
     @Autowired
     private OrdersItemService ordersItemService;
+    @Autowired
+    private GoodsService goodsService;
+
+
 
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public Result save(@RequestBody OrdersItem ordersItem) {
 
         Result result = new Result();
-
-        ordersItemService.add(ordersItem);
-        result.success("添加成功");
-
+        if(goodsService.checkAvailability(ordersItem.getGoodsId(),ordersItem.getGoodsQuantity(),"pay")) {
+            ordersItemService.save(ordersItem);
+            result.success("添加成功");
+        }
         return result;
     }
 

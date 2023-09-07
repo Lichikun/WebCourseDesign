@@ -8,6 +8,7 @@ import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.mapper.OrdersMapper;
 import com.example.petshop.entity.Orders;
 import com.example.petshop.service.OrdersService;
+import com.example.petshop.vo.ordersVo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -111,5 +112,15 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
 
         return this.page(page,queryWrapper);
     }
+    @Override
+    public ordersVo getByOrdersId(String id){
+        List<ordersVo> ordersVos = baseMapper.getOneOrders(id);
+        return ordersVos.get(0);
+    }
 
+    @Override
+    public List<ordersVo> getOrders(){
+        List<ordersVo> ordersVos = baseMapper.getAllOrders();
+        return ordersVos;
+    }
 }

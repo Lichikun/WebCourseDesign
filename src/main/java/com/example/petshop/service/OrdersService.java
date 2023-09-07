@@ -3,6 +3,7 @@ package com.example.petshop.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.petshop.entity.Orders;
+import com.example.petshop.vo.ordersVo;
 
 import java.util.List;
 
@@ -24,4 +25,8 @@ public interface OrdersService extends IService<Orders> {
     Boolean updateUsefulByIds(String id, Integer flag);
     Boolean updateState(String id, Integer flag);
     Page<Orders> page(Integer pageNum, Integer pageSize, String value,String name);
+
+    ordersVo getByOrdersId(String id);
+
+    List<ordersVo> getOrders();
 }
