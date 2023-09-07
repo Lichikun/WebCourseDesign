@@ -113,14 +113,14 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
         return this.page(page,queryWrapper);
     }
     @Override
-    public ordersVo getByOrdersId(String id){
+    public List<ordersVo> getByOrdersId(String id){
         List<ordersVo> ordersVos = baseMapper.getOneOrders(id);
-        return ordersVos.get(0);
+        return ordersVos;
     }
 
     @Override
-    public List<ordersVo> getOrders(){
-        List<ordersVo> ordersVos = baseMapper.getAllOrders();
+    public List<ordersVo> getOrders(Integer pageNum,Integer pageSize){
+        List<ordersVo> ordersVos = baseMapper.getAllOrders(pageNum,pageSize);
         return ordersVos;
     }
 }

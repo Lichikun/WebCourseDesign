@@ -21,7 +21,7 @@ public interface OrdersMapper extends BaseMapper<Orders> {
     @Select(
             "SELECT o.id AS order_id, o.creat_time, o.user_id, o.total, o.address, o.state, o.useful,o.`name` ,\n" +
                     "       oi.id AS item_id, oi.goods_quantity, oi.goods_price,\n" +
-                    "       g.id AS goods_id, g.`name` AS goods_name\n" +
+                    "       g.id AS goods_id, g.`name` AS goods_name,g.category as goods_category\n" +
                     "FROM orders o\n" +
                     "JOIN orders_item oi ON o.id = oi.orders_id\n" +
                     "JOIN goods g ON oi.goods_id = g.id\n" +
@@ -31,9 +31,10 @@ public interface OrdersMapper extends BaseMapper<Orders> {
     @Select(
             "SELECT o.id AS order_id, o.creat_time, o.user_id, o.total, o.address, o.state, o.useful,o.`name` ,\n" +
                     "       oi.id AS item_id, oi.goods_quantity, oi.goods_price,\n" +
-                    "       g.id AS goods_id, g.`name` AS goods_name\n" +
+                    "       g.id AS goods_id, g.`name` AS goods_name ,g.category as goods_category\n" +
                     "FROM orders o\n" +
                     "JOIN orders_item oi ON o.id = oi.orders_id\n" +
-                    "JOIN goods g ON oi.goods_id = g.id\n" )
-    List<ordersVo> getAllOrders();
+                    "JOIN goods g ON oi.goods_id = g.id\n" +
+                    "LIMIT #{pageSize} OFFSET #{pageNum};")
+    List<ordersVo> getAllOrders(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 }
