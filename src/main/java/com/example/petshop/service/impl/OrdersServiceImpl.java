@@ -5,13 +5,20 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.petshop.common.utils.DateTool;
+import com.example.petshop.common.utils.JwtTokenProvider;
+import com.example.petshop.entity.Goods;
+import com.example.petshop.entity.OrdersItem;
+import com.example.petshop.entity.Pets;
 import com.example.petshop.mapper.OrdersMapper;
 import com.example.petshop.entity.Orders;
 import com.example.petshop.service.OrdersService;
+import com.example.petshop.vo.userOrderVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
 * <p>
@@ -24,7 +31,8 @@ import java.util.List;
 @Service
 public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implements OrdersService {
 
-
+    @Autowired
+    private HttpServletRequest request;
     @Override
     public Orders add(Orders orders) {
         orders.setCreatTime(DateTool.getCurrTime());
@@ -110,6 +118,48 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
         queryWrapper.like(value,name);
 
         return this.page(page,queryWrapper);
+    }
+
+    @Override
+    public List<userOrderVo> getUserOrderByState(Integer state) {
+        String token = request.getHeader("Authorization");
+        JwtTokenProvider jwtTokenProvider=new JwtTokenProvider();
+        String userName=jwtTokenProvider.getUsernameFromToken(token);
+        String userId=this.baseMapper.getUserId(userName);
+        List<userOrderVo>list;
+        if(state>=0) {
+            list = this.baseMapper.getGoods(state, userId);
+            list.addAll(this.baseMapper.getPets(state, userId));
+        }else{
+            list = this.baseMapper.getALLGoods(userId);
+            list.addAll(this.baseMapper.getAllPets(userId));
+        }
+        Map<String,List<userOrderVo>>  userMap =  new HashMap<>();
+        list.forEach(item->{
+            List<userOrderVo> users = userMap.get(item.getOrdersId());
+            if(users==null){
+                users = new ArrayList<>();
+                users.add(item);
+                userMap.put(item.getOrdersId(),users);
+            }else{
+                users.add(item);
+            }
+        });
+        List<userOrderVo>list1=new ArrayList<>();
+        Set<String> keySet = userMap.keySet();
+        for (String key: keySet){
+            List<userOrderVo> value = userMap.get(key);
+            if(!value.isEmpty()) {
+                userOrderVo userOrderVo = new userOrderVo();
+                userOrderVo.setState(value.get(0).getState());
+                userOrderVo.setGoodsQuantity(value.get(0).getGoodsQuantity());
+                userOrderVo.setTotal(value.get(0).getTotal());
+                userOrderVo.setId(value.get(0).getId());
+                userOrderVo.setEtc(value);
+                list1.add(userOrderVo);
+            }
+        }
+        return list1;
     }
 
 }

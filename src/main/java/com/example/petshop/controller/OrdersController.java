@@ -87,4 +87,12 @@ public class OrdersController {
         result.setData(ordersService.page(pageNum,pageSize,value,name));
         return result;
     }
+    @RequestMapping(method = RequestMethod.POST,value = "/getUserOrderByState")
+    public Result getUserOrderByState( Integer state){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(ordersService.getUserOrderByState(state));
+        return result;
+    }
+
 }
