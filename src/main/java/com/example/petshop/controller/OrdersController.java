@@ -88,6 +88,17 @@ public class OrdersController {
         return result;
     }
 
+    @RequestMapping(method = RequestMethod.POST,value = "/getUserOrderByState")
+    public Result getUserOrderByState( Integer state){
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(ordersService.getUserOrderByState(state));
+        return result;
+    }
+
+}
+
+
     @RequestMapping(method = RequestMethod.POST,value = "/getOneOrders")
     public Result getOneOrders(String id ){
         Result result = new Result();
@@ -103,3 +114,4 @@ public class OrdersController {
         return result;
     }
 }
+
