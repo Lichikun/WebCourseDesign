@@ -12,8 +12,12 @@ import com.example.petshop.entity.Pets;
 import com.example.petshop.mapper.OrdersMapper;
 import com.example.petshop.entity.Orders;
 import com.example.petshop.service.OrdersService;
+
 import com.example.petshop.vo.userOrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.petshop.vo.ordersVo;
+
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -119,8 +123,14 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
 
         return this.page(page,queryWrapper);
     }
+    @Override
+    public List<ordersVo> getByOrdersId(String id){
+        List<ordersVo> ordersVos = baseMapper.getOneOrders(id);
+        return ordersVos;
+    }
 
     @Override
+
     public List<userOrderVo> getUserOrderByState(Integer state) {
         String token = request.getHeader("Authorization");
         JwtTokenProvider jwtTokenProvider=new JwtTokenProvider();
@@ -160,6 +170,12 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
             }
         }
         return list1;
+    }
+
+
+    public List<ordersVo> getOrders(Integer pageNum,Integer pageSize){
+        List<ordersVo> ordersVos = baseMapper.getAllOrders(pageNum,pageSize);
+        return ordersVos;
     }
 
 }

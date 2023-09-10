@@ -105,7 +105,6 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     }
 
 
-
     @Override
     public List<goodsVo> search(Integer pageNum, Integer pageSize,String name) {
         List<goodsVo> b=baseMapper.search((pageNum-1)*pageSize,pageSize,name);
@@ -170,5 +169,22 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     public List<goodsVo> getGoodsVideoFile(Integer pageNum, Integer pageSize) {
         List<goodsVo> list = baseMapper.getGoodVedioFile(pageNum,pageSize);
         return list;
+    }
+
+    @Override
+    public boolean checkAvailability(String id,Integer num,String type){
+        QueryWrapper<Goods> QueryWrapper = new QueryWrapper<>();
+        QueryWrapper.eq("id",id);
+        Goods goods = this.getOne(QueryWrapper);
+        Integer stock = goods.getStock() - num;
+        if(stock >= 0){
+            if(type == "pay"){
+                goods.setStock(stock);
+                this.update(goods);
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 }
