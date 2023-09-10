@@ -1,6 +1,7 @@
 package com.example.petshop.controller;
 
 import com.example.petshop.common.utils.Result;
+import com.example.petshop.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,20 +28,27 @@ import java.util.List;
 public class ShoppingCartController {
     @Autowired
     private ShoppingCartService shoppingCartService;
+    @Autowired
+    private GoodsService goodsService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public Result save(@RequestBody ShoppingCart shoppingCart) {
 
         Result result = new Result();
-        ShoppingCart findShoppingCart = shoppingCartService.getOneCart(shoppingCart.getUserId(),shoppingCart.getGoodsId());
-        if(findShoppingCart != null){
-            findShoppingCart.setGoodsNum(findShoppingCart.getGoodsNum()+shoppingCart.getGoodsNum());
-            shoppingCartService.update(findShoppingCart);
-            result.success("商品重复添加成功");
-        } else {
-            shoppingCartService.add(shoppingCart);
-            result.success("新建商品成功");
+        if(goodsService.checkAvailability(shoppingCart.getGoodsId(),shoppingCart.getGoodsNum(),"check")){
+            ShoppingCart findShoppingCart = shoppingCartService.getOneCart(shoppingCart.getUserId(),shoppingCart.getGoodsId());
+            if(findShoppingCart != null){
+                findShoppingCart.setGoodsNum(findShoppingCart.getGoodsNum()+shoppingCart.getGoodsNum());
+                shoppingCartService.update(findShoppingCart);
+                result.success("商品重复添加成功");
+            } else {
+                shoppingCartService.add(shoppingCart);
+                result.success("新建商品成功");
+            }
+        }else{
+            result.fail("商品库存不足");
         }
+
         return result;
     }
 
@@ -56,9 +64,13 @@ public class ShoppingCartController {
     @RequestMapping(method = RequestMethod.POST,value = "/update")
     public Result update(@RequestBody ShoppingCart shoppingCart){
         Result result = new Result();
-        shoppingCartService.update(shoppingCart);
-        result.success("修改成功");
-
+        System.out.println(shoppingCart);
+        if(goodsService.checkAvailability(shoppingCart.getGoodsId(),shoppingCart.getGoodsNum(),"check")){
+            shoppingCartService.update(shoppingCart);
+            result.success("修改成功");
+        }else{
+            result.fail("超过库存上限");
+        }
         return result;
     }
 
