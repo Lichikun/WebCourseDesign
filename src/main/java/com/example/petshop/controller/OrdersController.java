@@ -96,9 +96,6 @@ public class OrdersController {
         return result;
     }
 
-}
-
-
     @RequestMapping(method = RequestMethod.POST,value = "/getOneOrders")
     public Result getOneOrders(String id ){
         Result result = new Result();
