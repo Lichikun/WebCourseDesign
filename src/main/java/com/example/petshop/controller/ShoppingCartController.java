@@ -84,11 +84,15 @@ public class ShoppingCartController {
     public Result update(@RequestBody ShoppingCart shoppingCart){
         Result result = new Result();
         System.out.println(shoppingCart);
-        if(goodsService.checkAvailability(shoppingCart.getGoodsId(),shoppingCart.getGoodsNum(),"check")){
-            shoppingCartService.update(shoppingCart);
+        if(shoppingCart.getGoodsNum()==null){
             result.success("修改成功");
-        }else{
-            result.fail("超过库存上限");
+        }else {
+            if (goodsService.checkAvailability(shoppingCart.getGoodsId(), shoppingCart.getGoodsNum(), "check")) {
+                shoppingCartService.update(shoppingCart);
+                result.success("修改成功");
+            } else {
+                result.fail("超过库存上限");
+            }
         }
         return result;
     }

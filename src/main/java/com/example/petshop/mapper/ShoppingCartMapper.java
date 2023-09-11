@@ -25,6 +25,7 @@ public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
             "       s.name AS shop_name, \n" +
             "       sc.goods_num, \n" +
             "       sc.opt, \n" +
+            "       sc.type, \n" +
             "       p.id AS picture_id, \n" +
             "       p.url AS picture_url, \n" +
             "       p.state \n" +
