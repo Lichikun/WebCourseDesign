@@ -2,6 +2,7 @@ package com.example.petshop.controller;
 
 import com.example.petshop.common.utils.Result;
 import com.example.petshop.service.GoodsService;
+import com.example.petshop.service.PetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,24 +31,42 @@ public class ShoppingCartController {
     private ShoppingCartService shoppingCartService;
     @Autowired
     private GoodsService goodsService;
-
+    @Autowired
+    private PetsService petsService;
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public Result save(@RequestBody ShoppingCart shoppingCart) {
 
         Result result = new Result();
-        if(goodsService.checkAvailability(shoppingCart.getGoodsId(),shoppingCart.getGoodsNum(),"check")){
-            ShoppingCart findShoppingCart = shoppingCartService.getOneCart(shoppingCart.getUserId(),shoppingCart.getGoodsId());
-            if(findShoppingCart != null){
-                findShoppingCart.setGoodsNum(findShoppingCart.getGoodsNum()+shoppingCart.getGoodsNum());
-                shoppingCartService.update(findShoppingCart);
-                result.success("商品重复添加成功");
-            } else {
-                shoppingCartService.add(shoppingCart);
-                result.success("新建商品成功");
+        if(shoppingCart.getType() == 0){
+            System.out.println("goods");
+            if(goodsService.checkAvailability(shoppingCart.getGoodsId(),shoppingCart.getGoodsNum(),"check")){
+                ShoppingCart findShoppingCart = shoppingCartService.getOneCart(shoppingCart.getUserId(),shoppingCart.getGoodsId());
+                if(findShoppingCart != null){
+                    findShoppingCart.setGoodsNum(findShoppingCart.getGoodsNum()+shoppingCart.getGoodsNum());
+                    shoppingCartService.update(findShoppingCart);
+                    result.success("商品重复添加成功");
+                } else {
+                    shoppingCartService.add(shoppingCart);
+                    result.success("新建商品成功");
+                }
+            }else{
+                result.fail("商品库存不足");
             }
         }else{
-            result.fail("商品库存不足");
+            System.out.println("pets");
+            if(petsService.checkAvailability(shoppingCart.getGoodsId(),shoppingCart.getGoodsNum(),"check")){
+                ShoppingCart findShoppingCart = shoppingCartService.getOneCart(shoppingCart.getUserId(),shoppingCart.getGoodsId());
+                if(findShoppingCart != null){
+                    result.fail("达到添加上限");
+                } else {
+                    shoppingCartService.add(shoppingCart);
+                    result.success("新建商品成功");
+                }
+            }else{
+                result.fail("商品库存不足");
+            }
         }
+
 
         return result;
     }
@@ -100,12 +119,18 @@ public class ShoppingCartController {
     @RequestMapping(method = RequestMethod.POST, value = "/getCartList")
     public Result getCartList(String userId){
         Result result = new Result();
-        String ids = "";
+        String ids_goods = "";
+        String ids_pets = "";
         List<ShoppingCart> findCart = shoppingCartService.listEqByValue("user_id",userId);
         for(int i = 0;i < findCart.size();i++){
-            ids += findCart.get(i).getId() + ",";
+            if(findCart.get(i).getType() == 0)
+                ids_goods += findCart.get(i).getId() + ",";
+            else
+                ids_pets += findCart.get(i).getId() + ",";
         }
-        result.setData(shoppingCartService.getOrderList(ids));
+        System.out.println(ids_pets);
+        System.out.println(ids_goods);
+        result.setData(shoppingCartService.getOrderList(ids_goods));
         result.success("获取成功");
         return result;
     }

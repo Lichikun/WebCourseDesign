@@ -38,7 +38,7 @@ public class OrdersController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/deleteByIds")
-    public Result deleteByIds(String ids){
+    public Result deleteByIds(String ids) {
         Result result = new Result();
         ordersService.deleteByIds(ids);
         result.success("删除成功");
@@ -46,8 +46,8 @@ public class OrdersController {
         return result;
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/update")
-    public Result update(@RequestBody Orders orders){
+    @RequestMapping(method = RequestMethod.POST, value = "/update")
+    public Result update(@RequestBody Orders orders) {
         Result result = new Result();
 
         ordersService.update(orders);
@@ -56,59 +56,61 @@ public class OrdersController {
         return result;
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/updateUsefulByIds")
-    public Result updateUsefulByIds(String id,Integer flag) {
+    @RequestMapping(method = RequestMethod.POST, value = "/updateUsefulByIds")
+    public Result updateUsefulByIds(String id, Integer flag) {
         Result result = new Result();
-        ordersService.updateUsefulByIds(id,flag);
+        ordersService.updateUsefulByIds(id, flag);
         result.success("更新成功");
         return result;
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/updateState")
-    public Result updateState(String id,Integer flag) {
+    @RequestMapping(method = RequestMethod.POST, value = "/updateState")
+    public Result updateState(String id, Integer flag) {
         Result result = new Result();
-        ordersService.updateState(id,flag);
+        ordersService.updateState(id, flag);
         result.success("更新成功");
         return result;
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/list")
-    public Result listByValue(String value,String name){
+    @RequestMapping(method = RequestMethod.POST, value = "/list")
+    public Result listByValue(String value, String name) {
         Result result = new Result();
         result.success("获取list成功");
-        result.setData(ordersService.listByValue(value,name));
+        result.setData(ordersService.listByValue(value, name));
         return result;
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/page")
-    public Result page( Integer pageNum,Integer pageSize,String value, String name ){
+    @RequestMapping(method = RequestMethod.POST, value = "/page")
+    public Result page(Integer pageNum, Integer pageSize, String value, String name) {
         Result result = new Result();
         result.success("获取list成功");
-        result.setData(ordersService.page(pageNum,pageSize,value,name));
+        result.setData(ordersService.page(pageNum, pageSize, value, name));
         return result;
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/getUserOrderByState")
-    public Result getUserOrderByState( Integer state){
+    @RequestMapping(method = RequestMethod.POST, value = "/getUserOrderByState")
+    public Result getUserOrderByState(Integer state) {
         Result result = new Result();
         result.success("获取list成功");
         result.setData(ordersService.getUserOrderByState(state));
         return result;
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/getOneOrders")
-    public Result getOneOrders(String id ){
+    @RequestMapping(method = RequestMethod.POST, value = "/getOneOrders")
+    public Result getOneOrders(String id) {
         Result result = new Result();
         result.success("获取list成功");
         result.setData(ordersService.getByOrdersId(id));
         return result;
     }
-    @RequestMapping(method = RequestMethod.POST,value = "/getAllOrders")
-    public Result getAllOrders(Integer pageNum,Integer pageSize){
+
+    @RequestMapping(method = RequestMethod.POST, value = "/getAllOrders")
+    public Result getAllOrders(Integer pageNum, Integer pageSize) {
         Result result = new Result();
         result.success("获取list成功");
-        result.setData(ordersService.getOrders(pageNum,pageSize));
+        result.setData(ordersService.getOrders(pageNum, pageSize));
         return result;
     }
 }
+
 

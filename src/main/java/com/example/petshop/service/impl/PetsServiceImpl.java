@@ -146,4 +146,21 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
         List<petsVo> list = baseMapper.getVideoFile(pageNum,pageSize);
         return list;
     }
+
+    @Override
+    public boolean checkAvailability(String id, Integer num, String type){
+        QueryWrapper<Pets> QueryWrapper = new QueryWrapper<>();
+        QueryWrapper.eq("id",id);
+        Pets pets = this.getOne(QueryWrapper);
+        Integer stock = pets.getStock() - num;
+        if(stock >= 0){
+            if(type == "pay"){
+                pets.setStock(stock);
+                this.update(pets);
+            }
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
