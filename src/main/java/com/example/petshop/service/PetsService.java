@@ -37,4 +37,6 @@ public interface PetsService extends IService<Pets> {
     List<petsVo> getPetFile(Integer pageNum,Integer pageSize);
 
     List<petsVo> getVideoFile(Integer pageNum,Integer pageSize);
+
+    boolean checkAvailability(String id, Integer num, String type);
 }

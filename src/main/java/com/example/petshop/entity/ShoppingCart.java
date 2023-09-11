@@ -44,5 +44,5 @@ public class ShoppingCart extends BaseEntity {
      */
     private Integer opt;
 
-
+    private Integer type;
 }
