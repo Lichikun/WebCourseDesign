@@ -132,9 +132,7 @@ public class ShoppingCartController {
             else
                 ids_pets += findCart.get(i).getId() + ",";
         }
-        System.out.println(ids_pets);
-        System.out.println(ids_goods);
-        result.setData(shoppingCartService.getOrderList(ids_goods));
+        result.setData(shoppingCartService.getOrderList(ids_goods,ids_pets));
         result.success("获取成功");
         return result;
     }

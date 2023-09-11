@@ -34,5 +34,24 @@ public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
             "JOIN shop s ON g.shop_id = s.id \n" +
             "LEFT JOIN picture p ON g.id = p.belong_id AND p.state = '0'\n" +
             "WHERE sc.id = '${id}'  ")
-    List<shoppingCartVo> getByCartId(String id);
+    List<shoppingCartVo> getByCartId_goods(String id);
+
+    @Select("SELECT sc.id AS id, \n" +
+            "       g.id AS goods_id, \n" +
+            "       g.name AS goods_name, \n" +
+            "       g.price AS goods_price, \n" +
+            "       s.id AS shop_id, \n" +
+            "       s.name AS shop_name, \n" +
+            "       sc.goods_num, \n" +
+            "       sc.opt, \n" +
+            "       sc.type, \n" +
+            "       p.id AS picture_id, \n" +
+            "       p.url AS picture_url, \n" +
+            "       p.state \n" +
+            "FROM shopping_cart sc \n" +
+            "JOIN pets g ON sc.goods_id = g.id \n" +
+            "JOIN shop s ON g.shop_id = s.id \n" +
+            "LEFT JOIN picture p ON g.id = p.belong_id AND p.state = '0'\n" +
+            "WHERE sc.id = '${id}'  ")
+    List<shoppingCartVo> getByCartId_pet(String id);
 }
