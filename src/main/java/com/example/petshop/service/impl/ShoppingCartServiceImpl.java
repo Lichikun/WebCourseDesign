@@ -112,11 +112,15 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper,Shop
     }
 
     @Override
-    public List<shoppingCartVo> getOrderList(String ids) {
+    public List<shoppingCartVo> getOrderList(String ids_goods,String ids_pets) {
         List<shoppingCartVo> list = new ArrayList<>();
-        String[] aryIds = ids.split(",");
-        for(String id: aryIds){
-            list.addAll(baseMapper.getByCartId(id));
+        String[] aryIds_goods = ids_goods.split(",");
+        String[] aryIds_pets = ids_pets.split(",");
+        for(String id: aryIds_goods){
+            list.addAll(baseMapper.getByCartId_goods(id));
+        }
+        for(String id: aryIds_pets){
+            list.addAll(baseMapper.getByCartId_pet(id));
         }
         return list;
     }

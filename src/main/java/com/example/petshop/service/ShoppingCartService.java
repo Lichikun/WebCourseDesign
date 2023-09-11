@@ -26,5 +26,5 @@ public interface ShoppingCartService extends IService<ShoppingCart> {
     List<ShoppingCart> listEqByValue(String value, String name);
     Page<ShoppingCart> page(Integer pageNum, Integer pageSize, String name);
     ShoppingCart getOneCart(String userId, String goodsId);
-    List<shoppingCartVo> getOrderList(String ids);
+    List<shoppingCartVo> getOrderList(String ids_goods,String ids_pets);
 }
