@@ -3,6 +3,7 @@ package com.example.petshop.controller;
 import com.example.petshop.common.utils.Result;
 import com.example.petshop.entity.Goods;
 import com.example.petshop.service.GoodsService;
+import com.example.petshop.service.PetsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -29,16 +30,24 @@ public class OrdersItemController {
     private OrdersItemService ordersItemService;
     @Autowired
     private GoodsService goodsService;
-
+    @Autowired
+    private PetsService petsService;
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public Result save(@RequestBody OrdersItem ordersItem) {
 
         Result result = new Result();
-        if(goodsService.checkAvailability(ordersItem.getGoodsId(),ordersItem.getGoodsQuantity(),"pay")) {
-            ordersItemService.save(ordersItem);
-            result.success("添加成功");
+        if(ordersItem.getType() == 1){
+            if(petsService.checkAvailability(ordersItem.getGoodsId(),ordersItem.getGoodsQuantity(),"pay")) {
+                ordersItemService.save(ordersItem);
+                result.success("添加成功");
+            }
+        }else{
+            if(goodsService.checkAvailability(ordersItem.getGoodsId(),ordersItem.getGoodsQuantity(),"pay")) {
+                ordersItemService.save(ordersItem);
+                result.success("添加成功");
+            }
         }
         return result;
     }
