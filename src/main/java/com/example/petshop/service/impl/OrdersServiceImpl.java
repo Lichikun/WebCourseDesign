@@ -173,9 +173,20 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
     }
 
 
-    public List<ordersVo> getOrders(Integer pageNum,Integer pageSize){
+    @Override
+    public List<ordersVo> getOrders(Integer pageNum, Integer pageSize){
         List<ordersVo> ordersVos = baseMapper.getAllOrders(pageNum,pageSize);
         return ordersVos;
+    }
+
+    @Override
+    public Boolean setUserOrserState(String id,Integer state) {
+        QueryWrapper<Orders>queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("id",id);
+        Orders orders=this.getOne(queryWrapper);
+        orders.setState(state);
+        this.update(orders,queryWrapper);
+        return true;
     }
 
 }
