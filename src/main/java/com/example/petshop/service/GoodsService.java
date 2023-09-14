@@ -47,4 +47,6 @@ public interface GoodsService extends IService<Goods> {
     List<goodsVo> getGoodsVideoFile(Integer pageNum, Integer pageSize);
 
     boolean checkAvailability(String id, Integer num,String type);
+
+    Integer getGoodsNum();
 }

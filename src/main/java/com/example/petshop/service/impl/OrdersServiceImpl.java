@@ -178,4 +178,22 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
         return ordersVos;
     }
 
+    @Override
+    public Map<Integer, Integer> getOrdersState() {
+        QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("state, COUNT(*)");
+        queryWrapper.groupBy("state");
+
+        List<Map<String, Object> > result = this.listMaps(queryWrapper);
+
+        Map<Integer, Integer> orderCountsByState = new HashMap<>();
+        for (Map<String, Object> map : result) {
+            Integer state = (Integer) map.get("state");
+            Long count = (Long) map.get("COUNT(*)");
+            orderCountsByState.put(state, count.intValue());
+        }
+
+        return orderCountsByState;
+    }
+
 }

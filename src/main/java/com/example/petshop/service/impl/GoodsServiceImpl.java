@@ -187,4 +187,10 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
             return false;
         }
     }
+
+    @Override
+    public Integer getGoodsNum() {
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        return this.count(queryWrapper);
+    }
 }

@@ -111,6 +111,14 @@ public class OrdersController {
         result.setData(ordersService.getOrders(pageNum, pageSize));
         return result;
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/getOrdersState")
+    public Result getOrdersState() {
+        Result result = new Result();
+        result.success("获取orderState成功");
+        result.setData(ordersService.getOrdersState());
+        return result;
+    }
 }
 
 
