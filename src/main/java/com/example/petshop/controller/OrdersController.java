@@ -111,6 +111,13 @@ public class OrdersController {
         result.setData(ordersService.getOrders(pageNum, pageSize));
         return result;
     }
+    @RequestMapping(method = RequestMethod.POST, value = "/setUserOrserState")
+    public Result setUserOrserState(String id,Integer state) {
+        Result result = new Result();
+        result.success("修改成功");
+        result.setData(ordersService.setUserOrserState(id,state));
+        return result;
+    }
 }
 
 

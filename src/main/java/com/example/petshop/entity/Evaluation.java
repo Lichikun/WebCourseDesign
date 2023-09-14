@@ -33,7 +33,7 @@ public class Evaluation extends BaseEntity {
     /**
      * 评价的时间
      */
-    private LocalDateTime time;
+    private String time;
 
     /**
      * 评价的分数
@@ -60,5 +60,6 @@ public class Evaluation extends BaseEntity {
      */
     private Integer useful;
 
+    private String orderId;
 
 }
