@@ -3,6 +3,7 @@ package com.example.petshop.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.petshop.entity.Evaluation;
+import com.example.petshop.vo.commentVo;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface EvaluationService extends IService<Evaluation> {
     List<Evaluation> listByValue(String value,String name);
     Boolean updateUsefulByIds(String id, Boolean flag);
     Page<Evaluation> page(Integer pageNum, Integer pageSize, String name);
+    List<Evaluation> getUserComment(String ids,String orderId);
+    Boolean saveUserComment(String content,String goodsId,Integer score,String orderId);
+    List<commentVo>getGoodsComment(String goodsId);
 }

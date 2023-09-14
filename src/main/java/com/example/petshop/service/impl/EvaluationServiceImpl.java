@@ -5,11 +5,16 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.petshop.common.utils.DateTool;
+import com.example.petshop.common.utils.JwtTokenProvider;
 import com.example.petshop.mapper.EvaluationMapper;
 import com.example.petshop.entity.Evaluation;
 import com.example.petshop.service.EvaluationService;
+import com.example.petshop.vo.commentVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +28,8 @@ import java.util.List;
 */
 @Service
 public class EvaluationServiceImpl extends ServiceImpl<EvaluationMapper,Evaluation> implements EvaluationService {
-
+    @Autowired
+    private HttpServletRequest request;
 
     @Override
     public Boolean add(Evaluation evaluation) {
@@ -89,6 +95,47 @@ public class EvaluationServiceImpl extends ServiceImpl<EvaluationMapper,Evaluati
         queryWrapper.like("name",name);
 
         return this.page(page,queryWrapper);
+    }
+
+    @Override
+    public List<Evaluation> getUserComment(String ids,String orderId) {
+        String token = request.getHeader("Authorization");
+        JwtTokenProvider jwtTokenProvider=new JwtTokenProvider();
+        String userName=jwtTokenProvider.getUsernameFromToken(token);
+        String userId=this.baseMapper.getUserId(userName);
+        List<Evaluation>list=new ArrayList<>();
+        String[] aryIds = ids.split(",");
+        for(String id: aryIds){
+           Evaluation evaluation=this.baseMapper.getComment(id,userId,orderId);
+           list.add(evaluation);
+        }
+        return list;
+    }
+
+    @Override
+    public Boolean saveUserComment(String content, String goodsId, Integer score,String orderId) {
+        String token = request.getHeader("Authorization");
+        JwtTokenProvider jwtTokenProvider=new JwtTokenProvider();
+        String userName=jwtTokenProvider.getUsernameFromToken(token);
+        String userId=this.baseMapper.getUserId(userName);
+        String shopId=this.baseMapper.getGooodsShopId(goodsId);
+        Evaluation evaluation=new Evaluation();
+        evaluation.setUseful(1);
+        evaluation.setContent(content);
+        evaluation.setGoodsId(goodsId);
+        evaluation.setScore(score);
+        evaluation.setTime(DateTool.getCurrTime());
+        evaluation.setUserId(userId);
+        evaluation.setShopId(shopId);
+        evaluation.setOrderId(orderId);
+        this.save(evaluation);
+        return true;
+    }
+
+    @Override
+    public List<commentVo> getGoodsComment(String goodsId) {
+
+        return this.baseMapper.getGooodsComment(goodsId);
     }
 
 }

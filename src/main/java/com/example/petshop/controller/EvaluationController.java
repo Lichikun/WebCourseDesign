@@ -79,4 +79,25 @@ public class EvaluationController {
         result.setData(evaluationService.page(pageNum,pageSize,name));
         return result;
     }
+    @RequestMapping(method = RequestMethod.POST,value = "/getUserComment")
+    public Result getUserComment(String ids,String orderId){
+        Result result = new Result();
+        result.success("评论获取成功");
+        result.setData(evaluationService.getUserComment(ids,orderId));
+        return result;
+    }
+    @RequestMapping(method = RequestMethod.POST,value = "/saveUserComment")
+    public Result saveUserComment(String content,String goodsId,Integer score,String orderId){
+        Result result = new Result();
+        result.success("评论保存成功");
+        result.setData(evaluationService.saveUserComment(content,goodsId,score,orderId));
+        return result;
+    }
+    @RequestMapping(method = RequestMethod.POST,value = "/getGoodsComment")
+    public Result getGoodsComment(String goodsId){
+        Result result = new Result();
+        result.success("评论获取成功");
+        result.setData(evaluationService.getGoodsComment(goodsId));
+        return result;
+    }
 }
