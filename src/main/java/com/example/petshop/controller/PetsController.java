@@ -143,4 +143,22 @@ public class PetsController {
         result.setData(petsService.getVideoFile(pageNum,pageSize));
         return result;
     }
+
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/getPetsPricePhase")
+    public Result getPetsPricePhase (){
+        Result result = new Result();
+        result.success("获取price成功");
+        result.setData(petsService.getPetsPricePhase());
+        return result;
+    }
+
+    @SkipTokenValidation
+    @RequestMapping(method = RequestMethod.POST,value = "/getPetsTypeNum")
+    public Result getPetsTypeNum (){
+        Result result = new Result();
+        result.success("获取typeNum成功");
+        result.setData(petsService.getPetsTypeNum());
+        return result;
+    }
 }

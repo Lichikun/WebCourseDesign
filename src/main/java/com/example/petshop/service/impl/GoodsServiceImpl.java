@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.petshop.entity.Pets;
 import com.example.petshop.mapper.GoodsMapper;
 import com.example.petshop.entity.Goods;
 import com.example.petshop.service.GoodsService;
@@ -11,7 +12,9 @@ import com.example.petshop.vo.goodsVo;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * <p>
@@ -192,5 +195,49 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper,Goods> implements 
     public Integer getGoodsNum() {
         QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
         return this.count(queryWrapper);
+    }
+
+    @Override
+    public Map<String, Integer> getGoodsPricePhase() {
+        Map<String, Integer> dataItemCountByPriceRange = new HashMap<>();
+
+        QueryWrapper<Goods> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.between("price", 1.0, 100.0);
+        int range1Count = this.count(queryWrapper1);
+        dataItemCountByPriceRange.put("1-100", range1Count);
+
+        QueryWrapper<Goods> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.between("price", 100.0, 300.0);
+        int range2Count = this.count(queryWrapper2);
+        dataItemCountByPriceRange.put("100-300", range2Count);
+
+        QueryWrapper<Goods> queryWrapper3 = new QueryWrapper<>();
+        queryWrapper3.between("price", 300.0, 500.0);
+        int range3Count = this.count(queryWrapper3);
+        dataItemCountByPriceRange.put("300-500", range3Count);
+
+        QueryWrapper<Goods> queryWrapper4 = new QueryWrapper<>();
+        queryWrapper4.gt("price", 500.0);
+        int range4Count = this.count(queryWrapper4);
+        dataItemCountByPriceRange.put("500+", range4Count);
+
+        return dataItemCountByPriceRange;
+    }
+
+    @Override
+    public Map<String, Integer> getGoodsTypeNum() {
+        Map<String, Integer> itemCountByType = new HashMap<>();
+
+        QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("category")
+                .groupBy("category");
+        List<Map<String, Object>> resultList = this.listMaps(queryWrapper);
+        for (Map<String, Object> result : resultList) {
+            String category = (String) result.get("category");
+            int count = this.count(new QueryWrapper<Goods>().eq("category", category));
+            itemCountByType.put(category, count);
+        }
+
+        return itemCountByType;
     }
 }

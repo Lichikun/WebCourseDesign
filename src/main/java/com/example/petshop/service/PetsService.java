@@ -7,6 +7,7 @@ import com.example.petshop.vo.goodsVo;
 import com.example.petshop.vo.petsVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 * <p>
@@ -39,4 +40,8 @@ public interface PetsService extends IService<Pets> {
     List<petsVo> getVideoFile(Integer pageNum,Integer pageSize);
 
     boolean checkAvailability(String id, Integer num, String type);
+
+    Map<String, Integer> getPetsPricePhase();
+
+    Map<String, Integer>  getPetsTypeNum();
 }

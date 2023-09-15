@@ -177,4 +177,21 @@ public class GoodsController {
         result.setData(goodsService.getGoodsNum());
         return result;
     }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/getGoodsPricePhase")
+    public Result getGoodsPricePhase(){
+        Result result = new Result();
+        result.success("获取goodsPricePhase成功");
+        result.setData(goodsService.getGoodsPricePhase());
+        return result;
+    }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/getGoodsTypeNum")
+    public Result getGoodsTypeNum(){
+        Result result = new Result();
+        result.success("getGoodsTypeNum成功");
+        result.setData(goodsService.getGoodsTypeNum());
+        return result;
+    }
+
 }

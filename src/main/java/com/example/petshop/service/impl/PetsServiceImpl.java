@@ -10,7 +10,9 @@ import com.example.petshop.service.PetsService;
 import com.example.petshop.vo.petsVo;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * <p>
@@ -162,5 +164,49 @@ public class PetsServiceImpl extends ServiceImpl<PetsMapper,Pets> implements Pet
         }else{
             return false;
         }
+    }
+
+    @Override
+    public Map<String, Integer> getPetsPricePhase() {
+        Map<String, Integer> dataItemCountByPriceRange = new HashMap<>();
+
+        QueryWrapper<Pets> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.between("price", 1.0, 800.0);
+        int range1Count = this.count(queryWrapper1);
+        dataItemCountByPriceRange.put("1-800", range1Count);
+
+        QueryWrapper<Pets> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.between("price", 800.0, 1600.0);
+        int range2Count = this.count(queryWrapper2);
+        dataItemCountByPriceRange.put("801-1600", range2Count);
+
+        QueryWrapper<Pets> queryWrapper3 = new QueryWrapper<>();
+        queryWrapper3.between("price", 1600.0, 2400.0);
+        int range3Count = this.count(queryWrapper3);
+        dataItemCountByPriceRange.put("1601-2400", range3Count);
+
+        QueryWrapper<Pets> queryWrapper4 = new QueryWrapper<>();
+        queryWrapper4.gt("price", 2400.0);
+        int range4Count = this.count(queryWrapper4);
+        dataItemCountByPriceRange.put("2400+", range4Count);
+
+        return dataItemCountByPriceRange;
+    }
+
+    @Override
+    public Map<String, Integer> getPetsTypeNum() {
+        Map<String, Integer> itemCountByType = new HashMap<>();
+
+        QueryWrapper<Pets> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("type")
+                .groupBy("type");
+        List<Map<String, Object>> resultList = this.listMaps(queryWrapper);
+        for (Map<String, Object> result : resultList) {
+            String type = (String) result.get("type");
+            int count = this.count(new QueryWrapper<Pets>().eq("type", type));
+            itemCountByType.put(type, count);
+        }
+
+        return itemCountByType;
     }
 }
