@@ -69,4 +69,5 @@ public class Orders extends BaseEntity {
     private String shopId;
 
     private Integer mapNum;
+    private String reason;
 }

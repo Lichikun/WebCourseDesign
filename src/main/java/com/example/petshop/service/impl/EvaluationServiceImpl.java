@@ -138,4 +138,18 @@ public class EvaluationServiceImpl extends ServiceImpl<EvaluationMapper,Evaluati
         return this.baseMapper.getGooodsComment(goodsId);
     }
 
+    @Override
+    public List<commentVo> getGoodsCommentByScore(String goodsId, Integer index) {
+        List<commentVo>list;
+        if(index==3){
+            list=this.baseMapper.getGooodsCommentByScore(goodsId,1,2);
+        }else if(index==2){
+            list=this.baseMapper.getGooodsCommentByScore(goodsId,3,3);
+        }
+        else{
+            list=this.baseMapper.getGooodsCommentByScore(goodsId,4,5);
+        }
+        return list;
+    }
+
 }

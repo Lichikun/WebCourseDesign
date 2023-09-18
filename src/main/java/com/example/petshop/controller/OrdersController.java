@@ -118,6 +118,13 @@ public class OrdersController {
         result.setData(ordersService.setUserOrserState(id,state));
         return result;
     }
+    @RequestMapping(method = RequestMethod.POST, value = "/setUserOrserReason")
+    public Result setUserOrserReason(String id,String reason) {
+        Result result = new Result();
+        result.success("理由修改成功成功");
+        result.setData(ordersService.setUserOrserContent(id,reason));
+        return result;
+    }
 }
 
 
