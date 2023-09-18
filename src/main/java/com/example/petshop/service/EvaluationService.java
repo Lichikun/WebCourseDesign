@@ -27,4 +27,5 @@ public interface EvaluationService extends IService<Evaluation> {
     List<Evaluation> getUserComment(String ids,String orderId);
     Boolean saveUserComment(String content,String goodsId,Integer score,String orderId);
     List<commentVo>getGoodsComment(String goodsId);
+    List<commentVo>getGoodsCommentByScore(String goodsId,Integer index);
 }

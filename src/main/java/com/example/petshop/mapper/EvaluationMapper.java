@@ -29,4 +29,10 @@ public interface EvaluationMapper extends BaseMapper<Evaluation> {
             "ON A.user_id = B.id \n" +
             "WHERE goods_id=#{goodsId}")
     List<commentVo> getGooodsComment(@Param("goodsId") String goodsId);
+    @Select("SELECT *\n" +
+            "FROM evaluation A\n" +
+            "LEFT JOIN user B\n" +
+            "ON A.user_id = B.id\n" +
+            "WHERE goods_id=#{goodsId} AND score BETWEEN #{begin} AND #{end}")
+    List<commentVo> getGooodsCommentByScore(@Param("goodsId") String goodsId,@Param("begin") Integer begin,@Param("end") Integer end);
 }

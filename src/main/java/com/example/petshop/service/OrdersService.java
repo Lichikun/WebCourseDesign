@@ -38,4 +38,5 @@ public interface OrdersService extends IService<Orders> {
 
     List<ordersVo> getOrders(Integer pageNum, Integer pageSize);
     Boolean setUserOrserState(String id,Integer state);
+    Boolean setUserOrserContent(String id,String reason);
 }

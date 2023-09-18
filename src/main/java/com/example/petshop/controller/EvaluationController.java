@@ -100,4 +100,11 @@ public class EvaluationController {
         result.setData(evaluationService.getGoodsComment(goodsId));
         return result;
     }
+    @RequestMapping(method = RequestMethod.POST,value = "/getGoodsCommentByScore")
+    public Result getGoodsCommentByScore(String goodsId,Integer index){
+        Result result = new Result();
+        result.success("评论获取成功");
+        result.setData(evaluationService.getGoodsCommentByScore(goodsId,index));
+        return result;
+    }
 }

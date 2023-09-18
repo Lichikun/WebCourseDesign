@@ -189,4 +189,14 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
         return true;
     }
 
+    @Override
+    public Boolean setUserOrserContent(String id, String reason) {
+        QueryWrapper<Orders>queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("id",id);
+        Orders orders=this.getOne(queryWrapper);
+        orders.setReason(reason);
+        this.update(orders,queryWrapper);
+        return true;
+    }
+
 }
