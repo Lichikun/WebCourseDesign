@@ -9,6 +9,8 @@ import com.example.petshop.entity.Goods;
 @Accessors(chain = true)
 public class goodsVo extends Goods{
     private String url;
+
     private String belongId;
+
     private int state;
 }

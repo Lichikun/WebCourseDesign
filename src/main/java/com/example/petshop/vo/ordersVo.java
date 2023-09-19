@@ -9,8 +9,16 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class ordersVo extends Orders {
     private String goodsId;
+
     private String goodsQuantity;
+
     private String goodsPrice;
-    private String goodsName;
-    private String goodsCategory;
+
+    private String itemName;
+
+    private String itemType;
+
+    private String pictureUrl;
+
+    private String ordersId;
 }
