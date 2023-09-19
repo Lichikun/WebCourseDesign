@@ -111,6 +111,15 @@ public class OrdersController {
         result.setData(ordersService.getOrders(pageNum, pageSize));
         return result;
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/getAllOrders_back")
+    public Result getAllOrders_back(Integer pageNum, Integer pageSize) {
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(ordersService.getOrders_back(pageNum, pageSize));
+        return result;
+    }
+
 }
 
 

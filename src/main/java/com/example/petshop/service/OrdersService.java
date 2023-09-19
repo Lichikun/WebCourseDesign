@@ -10,7 +10,6 @@ import com.example.petshop.vo.ordersVo;
 
 
 import java.util.List;
-import java.util.Map;
 
 /**
 * <p>
@@ -37,4 +36,5 @@ public interface OrdersService extends IService<Orders> {
     List<ordersVo> getByOrdersId(String id);
 
     List<ordersVo> getOrders(Integer pageNum, Integer pageSize);
+    List<ordersVo> getOrders_back(Integer pageNum, Integer pageSize);
 }
