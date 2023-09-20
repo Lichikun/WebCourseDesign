@@ -95,4 +95,12 @@ public interface OrdersMapper extends BaseMapper<Orders> {
                     "LIMIT #{pageSize} OFFSET #{pageNum};")
     List<ordersVo> getAllOrders(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
+    @Select(
+            "SELECT * FROM orders_view ov WHERE ov.orders_id = #{id}"+ "LIMIT #{pageSize} OFFSET #{pageNum};")
+    List<ordersVo> getOrdersItemById(@Param("id") String id,@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+
+    @Select(
+            "SELECT * FROM orders_view ov\n"+
+                    "LIMIT #{pageSize} OFFSET #{pageNum};")
+    List<ordersVo> getAllOrdersItem(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 }

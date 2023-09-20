@@ -6,9 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.petshop.common.utils.DateTool;
 import com.example.petshop.common.utils.JwtTokenProvider;
-import com.example.petshop.entity.Goods;
-import com.example.petshop.entity.OrdersItem;
-import com.example.petshop.entity.Pets;
 import com.example.petshop.mapper.OrdersMapper;
 import com.example.petshop.entity.Orders;
 import com.example.petshop.service.OrdersService;
@@ -22,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
 * <p>
@@ -37,6 +33,8 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
 
     @Autowired
     private HttpServletRequest request;
+    @Autowired
+    private AddressServiceImpl addressService;
     @Override
     public Orders add(Orders orders) {
         orders.setCreatTime(DateTool.getCurrTime());
@@ -130,7 +128,6 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
     }
 
     @Override
-
     public List<userOrderVo> getUserOrderByState(Integer state) {
         String token = request.getHeader("Authorization");
         JwtTokenProvider jwtTokenProvider=new JwtTokenProvider();
@@ -173,10 +170,12 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
     }
 
 
-    public List<ordersVo> getOrders(Integer pageNum,Integer pageSize){
+    @Override
+    public List<ordersVo> getOrders(Integer pageNum, Integer pageSize){
         List<ordersVo> ordersVos = baseMapper.getAllOrders(pageNum,pageSize);
         return ordersVos;
     }
+
 
     @Override
     public Map<Integer, Integer> getOrdersState() {
@@ -194,6 +193,30 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
         }
 
         return orderCountsByState;
+
+    public List<ordersVo> getOrders_back(Integer pageNum, Integer pageSize){
+        List<ordersVo> ordersVos = baseMapper.getAllOrdersItem((pageNum-1)*pageSize, pageSize);
+        ordersVos.get(0).setMapNum(baseMapper.getAllOrdersItem(0,10000).size());
+        return ordersVos;
+
+    @Override
+    public Boolean setUserOrserState(String id,Integer state) {
+        QueryWrapper<Orders>queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("id",id);
+        Orders orders=this.getOne(queryWrapper);
+        orders.setState(state);
+        this.update(orders,queryWrapper);
+        return true;
+    }
+
+    @Override
+    public Boolean setUserOrserContent(String id, String reason) {
+        QueryWrapper<Orders>queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("id",id);
+        Orders orders=this.getOne(queryWrapper);
+        orders.setReason(reason);
+        this.update(orders,queryWrapper);
+        return true;
     }
 
 }

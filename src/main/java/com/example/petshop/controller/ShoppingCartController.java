@@ -33,6 +33,7 @@ public class ShoppingCartController {
     private GoodsService goodsService;
     @Autowired
     private PetsService petsService;
+
     @RequestMapping(method = RequestMethod.POST, value = "/save")
     public Result save(@RequestBody ShoppingCart shoppingCart) {
 
@@ -66,8 +67,6 @@ public class ShoppingCartController {
                 result.fail("商品库存不足");
             }
         }
-
-
         return result;
     }
 
@@ -138,3 +137,4 @@ public class ShoppingCartController {
     }
 
 }
+

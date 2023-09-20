@@ -117,6 +117,30 @@ public class OrdersController {
         Result result = new Result();
         result.success("获取orderState成功");
         result.setData(ordersService.getOrdersState());
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/getAllOrders_back")
+    public Result getAllOrders_back(Integer pageNum, Integer pageSize) {
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(ordersService.getOrders_back(pageNum, pageSize));
+        return result;
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/setUserOrserState")
+    public Result setUserOrserState(String id,Integer state) {
+        Result result = new Result();
+        result.success("修改成功");
+        result.setData(ordersService.setUserOrserState(id,state));
+        return result;
+    }
+      
+    @RequestMapping(method = RequestMethod.POST, value = "/setUserOrserReason")
+    public Result setUserOrserReason(String id,String reason) {
+        Result result = new Result();
+        result.success("理由修改成功成功");
+        result.setData(ordersService.setUserOrserContent(id,reason));
         return result;
     }
 }

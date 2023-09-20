@@ -1,16 +1,15 @@
 package com.example.petshop.vo;
+
+import com.example.petshop.entity.Evaluation;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import com.example.petshop.entity.Goods;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-public class goodsVo extends Goods{
-    private String url;
+public class commentVo extends Evaluation {
+    private String name;
+    private String avatar;
 
-    private String belongId;
-
-    private int state;
 }

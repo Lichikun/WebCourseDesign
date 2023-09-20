@@ -10,7 +10,6 @@ import com.example.petshop.vo.ordersVo;
 
 
 import java.util.List;
-import java.util.Map;
 
 /**
 * <p>
@@ -39,4 +38,9 @@ public interface OrdersService extends IService<Orders> {
     List<ordersVo> getOrders(Integer pageNum, Integer pageSize);
 
     Map<Integer, Integer> getOrdersState();
+    List<ordersVo> getOrders_back(Integer pageNum, Integer pageSize);
+
+    Boolean setUserOrserState(String id,Integer state);
+    Boolean setUserOrserContent(String id,String reason);
+
 }
