@@ -30,4 +30,5 @@ public interface ShopService extends IService<Shop> {
     Page<Shop> page(Integer pageNum, Integer pageSize, String value, String name);
     List<shopVo> search(Integer pageNum, Integer pageSize, String name);
     Shop getById(String id);
+    Integer getShopNum();
 }

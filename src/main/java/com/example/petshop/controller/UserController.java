@@ -106,4 +106,12 @@ public class UserController {
         result.setData(userService.page(pageNum,pageSize,name));
         return result;
     }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/num")
+    public Result num(){
+        Result result = new Result();
+        result.success("获取num成功");
+        result.setData(userService.getUserNum());
+        return result;
+    }
 }

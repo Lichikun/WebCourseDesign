@@ -24,4 +24,5 @@ public interface UserService extends IService<User> {
     List<User> listByValue(String value,String name);
     Boolean updateUsefulByIds(String id, Integer flag) throws Exception;
     Page<User> page(Integer pageNum, Integer pageSize, String name);
+    Integer getUserNum();
 }

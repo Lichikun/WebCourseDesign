@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.petshop.common.utils.mapDistance;
+import com.example.petshop.entity.User;
 import com.example.petshop.mapper.ShopMapper;
 import com.example.petshop.entity.Shop;
 import com.example.petshop.service.ShopService;
@@ -120,6 +121,12 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper,Shop> implements Sho
         QueryWrapper<Shop> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("id",id);
         return this.getOne(queryWrapper);
+    }
+
+    @Override
+    public Integer getShopNum() {
+        QueryWrapper<Shop> queryWrapper = new QueryWrapper<>();
+        return this.count(queryWrapper);
     }
 
 }

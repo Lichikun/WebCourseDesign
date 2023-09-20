@@ -124,4 +124,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         return this.page(page,queryWrapper);
     }
 
+    @Override
+    public Integer getUserNum() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        return this.count(queryWrapper);
+    }
+
 }

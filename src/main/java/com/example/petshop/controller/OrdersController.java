@@ -112,6 +112,12 @@ public class OrdersController {
         return result;
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/getOrdersState")
+    public Result getOrdersState() {
+        Result result = new Result();
+        result.success("获取orderState成功");
+        result.setData(ordersService.getOrdersState());
+    }
 
     @RequestMapping(method = RequestMethod.POST, value = "/getAllOrders_back")
     public Result getAllOrders_back(Integer pageNum, Integer pageSize) {
@@ -129,6 +135,7 @@ public class OrdersController {
         result.setData(ordersService.setUserOrserState(id,state));
         return result;
     }
+      
     @RequestMapping(method = RequestMethod.POST, value = "/setUserOrserReason")
     public Result setUserOrserReason(String id,String reason) {
         Result result = new Result();

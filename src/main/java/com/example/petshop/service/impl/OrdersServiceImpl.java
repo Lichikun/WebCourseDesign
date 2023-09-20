@@ -177,6 +177,23 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
     }
 
 
+    @Override
+    public Map<Integer, Integer> getOrdersState() {
+        QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("state, COUNT(*)");
+        queryWrapper.groupBy("state");
+
+        List<Map<String, Object> > result = this.listMaps(queryWrapper);
+
+        Map<Integer, Integer> orderCountsByState = new HashMap<>();
+        for (Map<String, Object> map : result) {
+            Integer state = (Integer) map.get("state");
+            Long count = (Long) map.get("COUNT(*)");
+            orderCountsByState.put(state, count.intValue());
+        }
+
+        return orderCountsByState;
+
     public List<ordersVo> getOrders_back(Integer pageNum, Integer pageSize){
         List<ordersVo> ordersVos = baseMapper.getAllOrdersItem((pageNum-1)*pageSize, pageSize);
         ordersVos.get(0).setMapNum(baseMapper.getAllOrdersItem(0,10000).size());
