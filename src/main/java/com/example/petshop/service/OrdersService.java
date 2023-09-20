@@ -40,7 +40,11 @@ public interface OrdersService extends IService<Orders> {
     Map<Integer, Integer> getOrdersState();
     List<ordersVo> getOrders_back(Integer pageNum, Integer pageSize);
 
-    Boolean setUserOrserState(String id,Integer state);
+    List<ordersVo> getOrders_backByState(Integer pageNum, Integer pageSize, Integer state);
+
+    List<ordersVo> getOrders_backById(Integer pageNum, Integer pageSize, String ordersId);
+
+    Boolean setUserOrserState(String id, Integer state);
     Boolean setUserOrserContent(String id,String reason);
 
 }
