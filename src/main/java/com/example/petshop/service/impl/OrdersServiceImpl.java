@@ -193,6 +193,7 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
         }
 
         return orderCountsByState;
+    }
 
     public List<ordersVo> getOrders_back(Integer pageNum, Integer pageSize){
         List<ordersVo> ordersVos = baseMapper.getAllOrdersItem((pageNum-1)*pageSize, pageSize);
