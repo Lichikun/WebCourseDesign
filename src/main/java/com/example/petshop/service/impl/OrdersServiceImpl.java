@@ -176,11 +176,26 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper,Orders> implemen
         return ordersVos;
     }
 
-
+    @Override
     public List<ordersVo> getOrders_back(Integer pageNum, Integer pageSize){
         List<ordersVo> ordersVos = baseMapper.getAllOrdersItem((pageNum-1)*pageSize, pageSize);
         ordersVos.get(0).setMapNum(baseMapper.getAllOrdersItem(0,10000).size());
         return ordersVos;
+    }
+
+    @Override
+    public List<ordersVo> getOrders_backByState(Integer pageNum, Integer pageSize,Integer state){
+        List<ordersVo> ordersVos = baseMapper.getOrdersItemByState((pageNum-1)*pageSize, pageSize,state);
+        ordersVos.get(0).setMapNum(baseMapper.getOrdersItemByState(0,10000,state).size());
+        return ordersVos;
+    }
+
+    @Override
+    public List<ordersVo> getOrders_backById(Integer pageNum, Integer pageSize,String ordersId){
+        List<ordersVo> ordersVos = baseMapper.getOrdersItemById((pageNum-1)*pageSize, pageSize,ordersId);
+
+        return ordersVos;
+    }
 
     @Override
     public Boolean setUserOrserState(String id,Integer state) {

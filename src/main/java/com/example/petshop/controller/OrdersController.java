@@ -121,6 +121,22 @@ public class OrdersController {
         return result;
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/getAllOrders_backByState")
+    public Result getAllOrders_backByState(Integer pageNum, Integer pageSize,Integer state) {
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(ordersService.getOrders_backByState(pageNum,pageSize,state));
+        return result;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/getAllOrders_backById")
+    public Result getAllOrders_backById(Integer pageNum, Integer pageSize,String ordersId) {
+        Result result = new Result();
+        result.success("获取list成功");
+        result.setData(ordersService.getOrders_backById(pageNum, pageSize,ordersId));
+        return result;
+    }
+
 
     @RequestMapping(method = RequestMethod.POST, value = "/setUserOrserState")
     public Result setUserOrserState(String id,Integer state) {
