@@ -37,6 +37,7 @@ public interface OrdersService extends IService<Orders> {
 
     List<ordersVo> getOrders(Integer pageNum, Integer pageSize);
 
+    Map<Integer, Integer> getOrdersState();
     List<ordersVo> getOrders_back(Integer pageNum, Integer pageSize);
 
     List<ordersVo> getOrders_backByState(Integer pageNum, Integer pageSize, Integer state);
