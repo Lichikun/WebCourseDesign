@@ -117,6 +117,7 @@ public class OrdersController {
         Result result = new Result();
         result.success("获取orderState成功");
         result.setData(ordersService.getOrdersState());
+        return result;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/getAllOrders_back")
